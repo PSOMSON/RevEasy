@@ -1,0 +1,23 @@
+Titre de la fiche
+
+@Definition mot
+la definition du mot sur cette ligne
+
+@Theoreme nom du théorème
+énoncé du théorème sur cette ligne
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+Nullam bibendum tortor est, vitae consequat massa imperdiet nec. 
+Sed eu sem magna. Vestibulum iaculis dui sapien, in porta lorem luctus ac. 
+Donec ac sem viverra, dapibus arcu non, auctor erat. Suspendisse non eros eget augue congue fringilla. 
+Maecenas sapien dolor, aliquet at elit quis, tristique vulputate magna. Sed tempus nunc leo, at auctor eros dictum quis. 
+Phasellus ac viverra nulla. Proin fermentum neque placerat tincidunt laoreet. 
+Integer eu lacus ut ante semper facilisis in pulvinar neque. Praesent non leo euismod, 
+fringilla velit ac, hendrerit elit. Morbi blandit ex in est tempor ornare. 
+Etiam vulputate metus nibh, sed lobortis sem consequat nec. 
+
+
+@Question Le latin est une langue morte ?
+@Reponse Oui
+@Reponse Non
+
