@@ -3,6 +3,9 @@ Titre de la fiche
 @Definition mot
 la definition du mot sur cette ligne
 
+@Definition mot2
+la definition du mot sur cette ligne!
+
 @Theoreme nom du théorème
 énoncé du théorème sur cette ligne
 

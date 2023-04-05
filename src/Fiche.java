@@ -1,10 +1,11 @@
 import java.util.HashSet;
+import java.util.LinkedList;
 
 public class Fiche {
 
     String titre;
 
-    HashSet<Enonce> definitions;
+    LinkedList<Enonce> definitions;
 
     HashSet<Enonce> theoremes;
 
@@ -21,6 +22,7 @@ public class Fiche {
         monContenu = separation[1];
 
         // Parser les enonces
+        definitions = new LinkedList<>();
         int i = monContenu.indexOf("@Definition");
         while (i != -1) {
             int finDuTitre = monContenu.indexOf("\n", i);
@@ -29,10 +31,18 @@ public class Fiche {
             
             definitions.add(new Enonce(Enonce.Type.DEFINITION, titreEnonce, contenuEnonce));
 
-            i = monContenu.indexOf("@Definition");
+            i = monContenu.indexOf("@Definition", i+1);
         }
         
         // TODO : finir le parsing
+    }
+
+    public String getTitre() {
+        return titre;
+    }
+
+    public LinkedList<Enonce> getDefinitions() {
+        return definitions;
     }
     
 }
