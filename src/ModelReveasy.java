@@ -1,14 +1,32 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.io.File;
 
-public class ModelReveasy implements ModelReveasyInterface {
+public class ModelReveasy {
+	static public String FICHIERS_PATH = "./";
+	
     private List<Fiche> fiches;
 
     /**
      * Constructeur de Reveasy
      */
-    public Reveasy() {
-        fiches = new ArrayList<>();
+    public ModelReveasy() {
+    	this.fiches = new ArrayList<>();
+    	File directory = new File(FICHIERS_PATH);
+        File[] files = directory.listFiles();
+        if (files != null) {
+	        for (File file : files) {
+	            if (file.isFile() && file.getName().endsWith(".txt")) {
+	            	String contenu = "";
+	            	try {
+	            		contenu = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+	            	} catch (Exception e) {
+	            		;
+	            	}
+	                fiches.add(new Fiche(contenu));
+	            }
+	        }
+        }
     }
 
     /**

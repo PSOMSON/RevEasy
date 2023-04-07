@@ -1,10 +1,9 @@
-package GUI;
 import javax.swing.*;
 import java.awt.*;
 
 public class Controleur extends JPanel {
 
-    public Controleur(Vue vue, JFrame fenetre) {
+    public Controleur(JFrame fenetre) {
         super(new FlowLayout());
 
         final JButton boutonQuitter = new JButton("Q");
