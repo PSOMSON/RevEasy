@@ -22,9 +22,18 @@ public class TesterFiche {
     }
 
     @Test
-    public void testerRecupererDefinitions() {
-        
+    public void testerRecupererDefinitions1() {
+        assertEquals(fiche1.getDefinitions().size(), 1);
     }
 
+    public void testerRecupererDefinitions2() {
+        assertTrue(fiche1.getDefinitions().get(0).getTitre().equals("@Definition Feur"));
+        assertTrue(fiche1.getDefinitions().get(0).getCorps().equals("Blague"));
+    }
+
+    @Test
+    public void testerRecupererTheoreme() {
+
+    }
 
 }
