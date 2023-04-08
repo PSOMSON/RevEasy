@@ -1,4 +1,9 @@
+package GUI;
+
 import javax.swing.*;
+
+import Model.ModelReveasy;
+
 import java.awt.*;
 
 public class IHM extends JFrame {
@@ -6,8 +11,6 @@ public class IHM extends JFrame {
     private final int LARGEUR_DEFAUT = 720;
     private final int HAUTEUR_DEFAUT = 480;
     
-
-
     /** Construire l'interface homme machine. */
     public IHM() {
         super("Reveasy");
@@ -27,11 +30,4 @@ public class IHM extends JFrame {
         this.setVisible(true);
     }
 
-    public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				new IHM();
-			}
-		});
-	}
 }

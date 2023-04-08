@@ -21,6 +21,11 @@ Etiam vulputate metus nibh, sed lobortis sem consequat nec.
 
 
 @Question Le latin est une langue morte ?
-@Reponse Oui
-@Reponse Non
+@ReponseV Oui
+@ReponseF Non
+
+@Question Java est ...
+@ReponseF un language impératif
+@ReponseV un language orienté objet
+@ReponseF un type d'ordinateur
 

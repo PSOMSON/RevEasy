@@ -2,6 +2,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+import Model.Fiche;
+
 public class temp {
     public static void main(String[] args) throws FileNotFoundException {
         

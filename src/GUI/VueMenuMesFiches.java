@@ -1,5 +1,6 @@
-import java.awt.Color;
+package GUI;
 
+import java.awt.Color;
 import javax.swing.JPanel;
 
 public class VueMenuMesFiches extends JPanel {

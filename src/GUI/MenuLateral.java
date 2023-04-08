@@ -1,3 +1,5 @@
+package GUI;
+
 import java.awt.GridLayout;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
@@ -34,8 +36,6 @@ public class MenuLateral extends JPanel {
         this.add(reviser);
         this.add(notes);
         this.add(parametres);
-        
-        
         
 
         /** Les differentes vues du programme */

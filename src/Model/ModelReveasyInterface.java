@@ -1,3 +1,9 @@
+package Model;
+import java.util.List;
+
+// TODO : Supprimer cette classe ? 
+// pour l'instant elle ne sert a rien...
+
 public interface ModelReveasyInterface {
     /**
      * Ajouter une fiche à la collection de fiches
