@@ -24,7 +24,8 @@ public class ModelReveasy {
 	            	} catch (Exception e) {
 	            		;
 	            	}
-	                fiches.add(new Fiche(contenu));
+	                fiches.add(new Fiche("Nom fiche",contenu)); 
+          //TODO : Ajouter le nom de la fiche --^^^^^^^^^
 	            }
 	        }
         }
