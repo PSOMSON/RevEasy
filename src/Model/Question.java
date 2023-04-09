@@ -1,4 +1,8 @@
 package Model;
+
+import java.util.Arrays;
+import java.util.stream.IntStream;
+
 public class Question {
 
     private String question;
@@ -8,23 +12,23 @@ public class Question {
     private int[] indexReponseJuste;    
 
     /**
-     * Constructeur d'une question. 
-     * Il faut appeler setReponseJuste ensuite pour choisir quelles sont les
-     * réponses correctes
-     * @param question chaine contenant la question
-     * @param reponses chaine(s) contenant(s) le(s) réponse(s)
+     * Constructeur d'une question.
+     * @param titreq
+     * @param reponsesJustes
+     * @param reponsesFausses
      */
-    public Question(String question, String... reponses) {
+    public Question(String question, String[] reponsesJustes, String[] reponsesFausses) {
         this.question = question;
-        this.reponses = reponses;
+
+        this.reponses = concatWithArrayCopy(reponsesJustes, reponsesFausses);
+
+        this.indexReponseJuste = IntStream.range(0, reponsesJustes.length).toArray();
     }
 
-    /**
-     * Donner les numéro des réponses juste en commencant la numérotation à 0.
-     * @param numeroReponsesJustes entier(s) désignant(s) la/les bonne(s) réponse(s)
-     */
-    public void setReponsesJustes(int... numeroReponsesJustes) {
-        indexReponseJuste = numeroReponsesJustes;
+    private static <T> T[] concatWithArrayCopy(T[] array1, T[] array2) {
+        T[] result = Arrays.copyOf(array1, array1.length + array2.length);
+        System.arraycopy(array2, 0, result, array1.length, array2.length);
+        return result;
     }
 
     /**
