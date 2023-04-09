@@ -1,12 +1,12 @@
 package GUI;
 
 import java.awt.GridLayout;
+
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
-import Model.Fiche;
 import Model.ModelReveasy;
 
 public class MenuLateral extends JPanel {

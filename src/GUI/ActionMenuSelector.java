@@ -6,10 +6,8 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Map.Entry;
 
-import javax.swing.JComponent;
 import javax.swing.JFrame;
 
-import GUI.MenuLateral.Menu;
 import Model.Fiche;
 import Model.ModelReveasy;
 

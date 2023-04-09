@@ -1,10 +1,7 @@
 package Model;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.HashMap;
 import java.io.File;
-import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ModelReveasy {
 	static public String FICHES_PATH = "/src/";
@@ -83,5 +80,7 @@ public class ModelReveasy {
      */
     public void supprimerFiche(Fiche fiche) {
         fiches.remove(fiche);
+        //TODO: Je pense que la fonction est fausse
+        //remove prend en argument un String vu comment est construit la map
     }
 }
