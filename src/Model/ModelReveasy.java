@@ -1,31 +1,36 @@
 package Model;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.HashMap;
 import java.io.File;
+import java.io.IOException;
 
 public class ModelReveasy {
-	static public String FICHIERS_PATH = "./";
+	static public String FICHES_PATH = "/src/";
+	static public String FICHES_EXTENSION = "txt";
 	
-    private List<Fiche> fiches;
+    private Map<String, Fiche> fiches;
 
     /**
      * Constructeur de Reveasy
      */
     public ModelReveasy() {
-    	this.fiches = new ArrayList<>();
-    	File directory = new File(FICHIERS_PATH);
+    	fiches = new HashMap<String, Fiche>();
+    	String path = System.getProperty("user.dir") + FICHES_PATH ;
+    	File directory = new File(path);
         File[] files = directory.listFiles();
         if (files != null) {
 	        for (File file : files) {
-	            if (file.isFile() && file.getName().endsWith(".txt")) {
+	            if (file.isFile() && file.getName().endsWith("."+ FICHES_EXTENSION)) {
 	            	String contenu = "";
 	            	try {
 	            		contenu = new String(java.nio.file.Files.readAllBytes(file.toPath()));
 	            	} catch (Exception e) {
 	            		;
 	            	}
-	                fiches.add(new Fiche("Nom fiche",contenu)); 
-          //TODO : Ajouter le nom de la fiche --^^^^^^^^^
+	            	String filename = file.getName().substring(0, file.getName().length()-FICHES_EXTENSION.length() + 1);
+	                fiches.put(filename, new Fiche("titre",contenu));
 	            }
 	        }
         }
@@ -35,15 +40,15 @@ public class ModelReveasy {
      * Ajouter une fiche à la collection de fiches
      * @param fiche la fiche à ajouter
      */
-    public void ajouterFiche(Fiche fiche) {
-        fiches.add(fiche);
+    public void ajouterFiche(String nomFiche,Fiche fiche) {
+        fiches.put(nomFiche, fiche);
     }
 
     /**
      * Obtenir la liste des fiches
      * @return la liste des fiches
      */
-    public List<Fiche> getFiches() {
+    public Map<String, Fiche> getFiches() {
         return fiches;
     }
 
@@ -52,7 +57,7 @@ public class ModelReveasy {
      * @param motCle le mot clé à chercher
      * @return la liste des fiches correspondantes
      */
-    public List<Fiche> rechercherFiches(String motCle) {
+    /**public List<Fiche> rechercherFiches(String motCle) {
         List<Fiche> resultats = new ArrayList<>();
 
         for (Fiche fiche : fiches) {
@@ -70,7 +75,7 @@ public class ModelReveasy {
         }
 
         return resultats;
-    }
+    }**/
 
     /**
      * Supprimer une fiche de la collection de fiches

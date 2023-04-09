@@ -18,11 +18,12 @@ public class IHM extends JFrame {
         // Modele
         ModelReveasy modelReveasy = new ModelReveasy();
         // Vue
+        JComponent vue_par_defaut = new VueMenuMesFiches(this, modelReveasy);
         Controleur controleur = new Controleur(this);
         
-        MenuLateral menuLateral = new MenuLateral(this);
+        MenuLateral menuLateral = new MenuLateral(this, modelReveasy);
         this.setLayout(new BorderLayout());
-        this.add(menuLateral.vueMenuMesFiches, BorderLayout.CENTER); // A Voir
+        this.add(vue_par_defaut, BorderLayout.CENTER);
         this.add(controleur, BorderLayout.SOUTH);
         this.add(menuLateral, BorderLayout.WEST);
         this.pack();
