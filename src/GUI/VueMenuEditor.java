@@ -25,10 +25,10 @@ public class VueMenuEditor extends JEditorPane {
 	//Nouvelle Fiche
 	public VueMenuEditor(ModelReveasy modelReveasy) {
 		int rand_int = (new Random()).nextInt(100000);
-		String nom_fichier = "NouvelleFiche"+ rand_int +"." + ModelReveasy.FICHES_EXTENSION;
+		String nom_fichier = "NouvelleFiche"+ rand_int;
 				
 		String path = System.getProperty("user.dir") + ModelReveasy.FICHES_PATH + "/" + nom_fichier;
-		File new_file = new File(path);
+		File new_file = new File(path + "." + ModelReveasy.FICHES_EXTENSION);
 		FileWriter myWriter;
 		try {
 			new_file.createNewFile();

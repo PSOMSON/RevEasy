@@ -26,7 +26,7 @@ public class ModelReveasy {
 	            	} catch (Exception e) {
 	            		;
 	            	}
-	            	String filename = file.getName().substring(0, file.getName().length()-FICHES_EXTENSION.length() + 1);
+	            	String filename = file.getName().substring(0, file.getName().length()-FICHES_EXTENSION.length()-1);
 	                fiches.put(filename, new Fiche("titre",contenu));
 	            }
 	        }
@@ -78,9 +78,7 @@ public class ModelReveasy {
      * Supprimer une fiche de la collection de fiches
      * @param fiche la fiche à supprimer
      */
-    public void supprimerFiche(Fiche fiche) {
-        fiches.remove(fiche);
-        //TODO: Je pense que la fonction est fausse
-        //remove prend en argument un String vu comment est construit la map
+    public void supprimerFiche(String nomFiche) {
+        fiches.remove(nomFiche);
     }
 }
