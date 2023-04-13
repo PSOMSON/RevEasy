@@ -32,9 +32,10 @@ public class ActionEnregistrer implements ActionListener {
     public void actionPerformed(ActionEvent ev) {
         String nom = this.zoneTexte.getText();
         if (nom.equals("")) {
-            System.out.println("Le nom de la fiche ne peut pas être vide ! ");
+            JOptionPane.showMessageDialog(editeur, "Le nom de la fiche ne peut pas être vide ! ");
         }
         else {
+            // Enregistrer la fiche.
             String path = System.getProperty("user.dir") + ModelReveasy.FICHES_PATH + "/" + nom + "." + ModelReveasy.FICHES_EXTENSION;
             FileWriter myWriter;
             try {
@@ -47,7 +48,6 @@ public class ActionEnregistrer implements ActionListener {
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();
-                System.out.println(nom);
             }
         }
     }

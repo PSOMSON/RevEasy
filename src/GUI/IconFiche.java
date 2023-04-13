@@ -6,7 +6,7 @@ import java.util.Map.Entry;
 
 import javax.swing.JLabel;
 
-import GUI.MenuLateral.ComposantPrincipaux;;
+import GUI.MenuLateral.ComposantPrincipaux;
 import Model.Fiche;
 import Model.ModelReveasy;
 

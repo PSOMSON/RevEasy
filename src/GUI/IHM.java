@@ -15,14 +15,15 @@ public class IHM extends JFrame {
     private final int HAUTEUR_DEFAUT = 480;
 
     /** Panel correspondant à la vue des fiches existantes. */
-    private JPanel vueMesFiches;
+    private VueMesFiches vueMesFiches;
 
-    /** Panel correspondant à l'éditeur */
+    /** Panel correspondant à l'éditeur. */
     private JEditorPane editeur;
 
     /** Modèle. */
     private ModelReveasy modele;
 
+    /** Composant principal actuel. */
     private Component compActuel;
     
     /** Construire l'interface homme machine. */
@@ -30,10 +31,9 @@ public class IHM extends JFrame {
         super("Reveasy");
         
         this.modele = new ModelReveasy();
-
         this.vueMesFiches = new VueMesFiches(this, modele);
-        this.compActuel = vueMesFiches;
         this.editeur = new VueEditeur();
+        this.compActuel = vueMesFiches;
         ControleurEditeur controleur = new ControleurEditeur(this, this.editeur, modele);
         MenuLateral menuLateral = new MenuLateral(this, modele);
 
@@ -47,6 +47,10 @@ public class IHM extends JFrame {
         this.setVisible(true);
     }
 
+    /**
+     * Changer le a vue du panel principal.
+     * @param composant identifiant du prochain composant.
+     */
     public void setPanelPrincipal(MenuLateral.ComposantPrincipaux composant) {
         // Récupérer le composant affiché actuellement
         this.remove(compActuel);
@@ -55,6 +59,8 @@ public class IHM extends JFrame {
                 // TODO : pas compris différence entre editor et creer
                 break;
             case MESFICHES :
+                // mettre à jour l'affichage des fiches.
+                vueMesFiches.mettreAJourVueFiches();
                 this.add(this.vueMesFiches);
                 compActuel = this.vueMesFiches;
                 break;

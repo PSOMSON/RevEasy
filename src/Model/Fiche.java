@@ -11,7 +11,8 @@ import java.util.Map;
 public class Fiche {
 
     private String titre;
-    private List<String> texte; 
+    private List<String> texte;
+    private String contenu; // Sert pour réafficher le contenu plus tard si on veut modifier la fiche.
 
     private final Map<Enonce.Type, String> balises = 
             Map.of(Enonce.Type.DEFINITION, "@Definition", Enonce.Type.THEOREME, "@Theoreme");
@@ -23,6 +24,7 @@ public class Fiche {
      */
     public Fiche(String titre, String contenu) {
         this.titre = titre;
+        this.contenu = contenu;
         this.texte = new ArrayList<>();
 
         // Découper le contenu en ligne de contenu
@@ -106,7 +108,11 @@ public class Fiche {
     public Iterator<String> getContenuIterator() {
         return texte.iterator();
     }
-    
+
+    public String getContenu() {
+        return this.contenu;
+    }
+
     /**
      * Factorisation du code de getThm et getDef.
      * @param type Type d'enoncé à chercher dans la fiche.
