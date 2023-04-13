@@ -2,21 +2,20 @@ package GUI;
 
 import java.awt.GridLayout;
 
-import javax.swing.JComponent;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import Model.ModelReveasy;
 
 public class MenuLateral extends JPanel {
-	public JComponent vueMenuMesFiches;
-	
-	public enum Menu {
+
+
+	public enum ComposantPrincipaux {
         MESFICHES,
         CREER,
         EDITOR,
     }
+
     /** Zones de textes du menu.*/
 
     /** Créer une fiche. */
@@ -35,23 +34,18 @@ public class MenuLateral extends JPanel {
 
     /** Construire un menu lateral 
      * @param modelReveasy 
-     * @param vueMenuMesFiches 
-     * @param vueMenuCreer 
-     * @param ihm */
-    public MenuLateral(JFrame fenetre, ModelReveasy modelReveasy) {
+     * @param ihm 
+     * */
+    public MenuLateral(IHM fenetre, ModelReveasy modelReveasy) {
         super(new GridLayout(12, 1)); // TODO : Regler problème de taille du menu latéral.
         this.add(creer);
         this.add(mesFiches);
         this.add(reviser);
         this.add(notes);
         this.add(parametres);
-        
-
-        
 
         /** Controleurs pour lancer les differentes vues */
-        creer.addMouseListener(new ActionMenuSelector(fenetre, Menu.CREER, modelReveasy));
-        mesFiches.addMouseListener(new ActionMenuSelector(fenetre, Menu.MESFICHES, modelReveasy));
-
+        creer.addMouseListener(new ActionMenuSelector(fenetre, ComposantPrincipaux.CREER));
+        mesFiches.addMouseListener(new ActionMenuSelector(fenetre, ComposantPrincipaux.MESFICHES));
     }
 }

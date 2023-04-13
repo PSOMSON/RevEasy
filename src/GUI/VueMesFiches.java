@@ -7,22 +7,21 @@ import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.BoxLayout;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-import GUI.MenuLateral.Menu;
+import GUI.MenuLateral.ComposantPrincipaux;
 import Model.Fiche;
 import Model.ModelReveasy;
 
-public class VueMenuMesFiches extends JPanel {
+public class VueMesFiches extends JPanel {
 	private JLabel selectedIcon;
-	private JFrame fenetre;
+	private IHM fenetre;
 	private ModelReveasy modelReveasy;
 	
 
-	public VueMenuMesFiches(JFrame fenetre, ModelReveasy modelReveasy) {
+	public VueMesFiches(IHM fenetre, ModelReveasy modelReveasy) {
 		super();
 		this.fenetre = fenetre;
 		this.modelReveasy = modelReveasy;
@@ -60,7 +59,7 @@ public class VueMenuMesFiches extends JPanel {
 				selectedIcon = clickedIcon;
 				selectedIcon.setForeground(Color.WHITE);
 			} else if (e.getClickCount() == 2) {
-				ActionMenuSelector open= new ActionMenuSelector(fenetre, Menu.EDITOR, modelReveasy, entry);
+				ActionMenuSelector open = new ActionMenuSelector(fenetre, ComposantPrincipaux.EDITOR);
 				open.mouseClicked(e);
 			}
 		}
