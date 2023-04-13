@@ -44,7 +44,7 @@ public class ActionEnregistrer implements ActionListener {
                 myWriter.close();
 
                 /** Ajouter le ficher au modele si la creation du fichier a été realisée avec succes. **/
-                modele.ajouterFiche(nom, new Fiche("NouvelleFiche" + "." + ModelReveasy.FICHES_EXTENSION, "Rien !"));
+                modele.ajouterFiche(nom, new Fiche("NouvelleFiche" + "." + ModelReveasy.FICHES_EXTENSION, editeur.getText()));
             } catch (IOException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

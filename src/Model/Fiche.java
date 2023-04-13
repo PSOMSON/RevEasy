@@ -109,6 +109,10 @@ public class Fiche {
         return texte.iterator();
     }
 
+    /**
+     * Obtenir le contenu (brut) de la fiche.
+     * @return
+     */
     public String getContenu() {
         return this.contenu;
     }
