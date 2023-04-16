@@ -140,5 +140,20 @@ public class Fiche {
         }
         return enonces;
     }
+    public static List<String> getTexteATrouver(String texte) {
+        String tag = "@textareviser";
+        List<String> result = new ArrayList<String>();
+        int startIndex = texte.indexOf(tag);
+        while (startIndex != -1) {
+            int endIndex = texte.indexOf(tag, startIndex + 1);
+            if (endIndex == -1) {
+                break;
+            }
+            String extractedText = texte.substring(startIndex + tag.length()+1, endIndex).trim();
+            result.add(extractedText);
+            startIndex = texte.indexOf(tag, endIndex + 1);
+        }
+        return result;
+    }
 
 }
