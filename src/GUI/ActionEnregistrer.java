@@ -36,19 +36,7 @@ public class ActionEnregistrer implements ActionListener {
         }
         else {
             // Enregistrer la fiche.
-            String path = System.getProperty("user.dir") + ModelReveasy.FICHES_PATH + "/" + nom + "." + ModelReveasy.FICHES_EXTENSION;
-            FileWriter myWriter;
-            try {
-                myWriter = new FileWriter(path);
-                myWriter.write(editeur.getText());
-                myWriter.close();
-
-                /** Ajouter le ficher au modele si la creation du fichier a été realisée avec succes. **/
-                modele.ajouterFiche(nom, new Fiche("NouvelleFiche" + "." + ModelReveasy.FICHES_EXTENSION, editeur.getText()));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        	modele.ajouterFiche(nom, new Fiche(nom, editeur.getText()));
         }
     }
 
