@@ -4,9 +4,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ModelReveasy {
-	static public String FICHES_PATH = "/src/";
+	static public String FICHES_PATH = "/fiches/";
 	static public String FICHES_EXTENSION = "txt";
-	
+
+    /** TODO : considérer plutôt un ensemble (ou liste) de fiche ? la map n'a pas de sens
+     *  puisque l'on a déjà l'information des clés (String) dans la Fiche.
+     */
     private Map<String, Fiche> fiches;
 
     /**
