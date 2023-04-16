@@ -1,10 +1,12 @@
 package Model;
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class ModelReveasy {
-	static public String FICHES_PATH = "/fiches/";
+	static public String FICHES_PATH = "/fiches/"; //A voir car sur Eclipse: FICHES_PATH = "/src/fiches/", sinon ca ne marche pas
 	static public String FICHES_EXTENSION = "txt";
 
     /** TODO : considérer plutôt un ensemble (ou liste) de fiche ? la map n'a pas de sens
@@ -26,6 +28,7 @@ public class ModelReveasy {
 	            	String contenu = "";
 	            	try {
 	            		contenu = new String(java.nio.file.Files.readAllBytes(file.toPath()));
+	            		
 	            	} catch (Exception e) {
 	            		;
 	            	}
@@ -36,12 +39,27 @@ public class ModelReveasy {
         }
     }
 
+    
     /**
-     * Ajouter une fiche à la collection de fiches
-     * @param fiche la fiche à ajouter
+     * Creer une fiche et le fichier associe dans le dossier fiches
+     * @param nom nom de la fiche à creer
+     * @param contenu contenu de la fiche
      */
     public void ajouterFiche(String nomFiche,Fiche fiche) {
-        fiches.put(nomFiche, fiche);
+        String path = System.getProperty("user.dir") + FICHES_PATH + "/" + nomFiche + "." + FICHES_EXTENSION;
+        FileWriter myWriter;
+		try {
+			// Il faut que le dossier fiches existe
+			myWriter = new FileWriter(new File(System.getProperty("user.dir") + FICHES_PATH, nomFiche+ "." + FICHES_EXTENSION));
+			myWriter.write(fiche.getContenu());
+			myWriter.close();
+
+			/** Ajouter le ficher au modele si la creation du fichier a ete realise avec succes**/
+			fiches.put(nomFiche, fiche);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 
     /**
