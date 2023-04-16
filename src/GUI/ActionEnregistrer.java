@@ -9,7 +9,6 @@ import Model.ModelReveasy;
 import java.awt.event.*;
 
 import java.io.FileWriter;
-import java.io.File;
 import java.io.IOException;
 
 public class ActionEnregistrer implements ActionListener {
