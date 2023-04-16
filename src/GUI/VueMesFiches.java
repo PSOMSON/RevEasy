@@ -2,12 +2,13 @@ package GUI;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Map;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
+import javax.swing.*;
+import javax.swing.text.html.HTMLEditorKit;
 
 import Model.Fiche;
 import Model.ModelReveasy;
@@ -60,6 +61,26 @@ public class VueMesFiches extends JPanel {
 		Fiche fiche = modelReveasy.getFiches().get(nomFiche);
 
 		// TODO : afficher la fiche.
+		// Tentative :
+		this.removeAll();
+		JTextPane textPane = new JTextPane();
+		textPane.setEditorKit(new HTMLEditorKit());
+
+		try {
+			FileReader reader = new FileReader(fiche.getContenu());
+			textPane.read(reader, null);
+		} catch (FileNotFoundException e) {
+			System.out.println("Fichier non trouvé");
+		} catch (IOException e) {
+			System.out.println("Erreur d'entrée/sortie");
+		}
+
+
+		textPane.setText(fiche.getContenu());
+		this.add(textPane);
+		this.validate();
+
+
 		System.out.println(fiche.getContenu());
 	}
 }
