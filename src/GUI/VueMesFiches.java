@@ -57,7 +57,6 @@ public class VueMesFiches extends JPanel {
 	 */
 	protected void visionnerFiche(JLabel clickedIcon) {
 		String nomFiche = clickedIcon.getText();
-		System.out.println(nomFiche);
 		Fiche fiche = modelReveasy.getFiches().get(nomFiche);
 
 		// TODO : afficher la fiche.
@@ -67,7 +66,7 @@ public class VueMesFiches extends JPanel {
 		textPane.setEditorKit(new HTMLEditorKit());
 
 		try {
-			FileReader reader = new FileReader(fiche.getContenu());
+			FileReader reader = new FileReader(fiche.getTitre());
 			textPane.read(reader, null);
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier non trouvé");
@@ -79,8 +78,5 @@ public class VueMesFiches extends JPanel {
 		textPane.setText(fiche.getContenu());
 		this.add(textPane);
 		this.validate();
-
-
-		System.out.println(fiche.getContenu());
 	}
 }

@@ -2,6 +2,7 @@ package GUI;
 import javax.swing.*;
 import java.awt.event.*;
 
+/** Action quitter la fênetre. */
 public class ActionQuitter implements ActionListener {
 
     /** Fenetre à quitter. */

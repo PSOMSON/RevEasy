@@ -22,7 +22,7 @@ public class VueEditeur extends JPanel {
 		JPanel entete = new JPanel();
 		entete.setLayout(new FlowLayout());
 		this.add(editeur, BorderLayout.CENTER);
-		this.add(entete, BorderLayout.NORTH);
+		this.add(entete, BorderLayout.SOUTH);
 		texte = new JLabel();
 		entete.add(texte);
 		JButton enregistrer = new JButton("Enregistrer");
