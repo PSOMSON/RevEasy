@@ -140,5 +140,26 @@ public class Fiche {
         }
         return enonces;
     }
+    // on peut ajouter le tag @textatrou au début et à la fin des textes
+    /**
+     * Obtenir la liste des textes à réviser.
+     * @param contenu Contenu de la fiche
+     * @return Liste des textes à réviser
+     */
+    public  List<String> getTexteATrouver() {
+        String tag = "@textatrou";
+        List<String> result = new ArrayList<String>();
+        int startIndex = contenu.indexOf(tag);
+        while (startIndex != -1) {
+            int endIndex = contenu.indexOf(tag, startIndex + 1);
+            if (endIndex == -1) {
+                break;
+            }
+            String extractedText = contenu.substring(startIndex + tag.length()+1, endIndex).trim();
+            result.add(extractedText);
+            startIndex = contenu.indexOf(tag, endIndex + 1);
+        }
+        return result;
+    }
 
 }

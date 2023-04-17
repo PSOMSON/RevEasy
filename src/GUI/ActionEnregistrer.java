@@ -5,7 +5,6 @@ import javax.swing.text.JTextComponent;
 
 import Model.Fiche;
 import Model.ModelReveasy;
-import Model.Translator;
 
 import java.awt.event.*;
 
@@ -37,20 +36,7 @@ public class ActionEnregistrer implements ActionListener {
         }
         else {
             // Enregistrer la fiche.
-            String path = System.getProperty("user.dir") + ModelReveasy.FICHES_PATH + "/" + nom + "." + ModelReveasy.FICHES_EXTENSION;
-            FileWriter myWriter;
-            try {
-                myWriter = new FileWriter(path);
-                String content = editeur.getText();
-                myWriter.write(Translator.toHTML(content));
-                myWriter.close();
-
-                /** Ajouter le ficher au modele si la creation du fichier a été realisée avec succes. **/
-                modele.ajouterFiche(nom, new Fiche("NouvelleFiche" + "." + ModelReveasy.FICHES_EXTENSION, Translator.toHTML(editeur.getText())));
-            } catch (IOException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
+        	modele.ajouterFiche(nom, new Fiche(nom, editeur.getText()));
         }
     }
 
