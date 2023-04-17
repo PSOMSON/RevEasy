@@ -57,7 +57,6 @@ public class VueMesFiches extends JPanel {
 	 */
 	protected void visionnerFiche(JLabel clickedIcon) {
 		String nomFiche = clickedIcon.getText();
-		System.out.println(nomFiche);
 		Fiche fiche = modelReveasy.getFiches().get(nomFiche);
 
 		// TODO : afficher la fiche.
@@ -79,8 +78,5 @@ public class VueMesFiches extends JPanel {
 		textPane.setText(fiche.getContenu());
 		this.add(textPane);
 		this.validate();
-
-
-		System.out.println(fiche.getContenu());
 	}
 }
