@@ -1,5 +1,29 @@
 @startuml model
 
+package Inutilisé {
+            
+            class MotCle {
+    
+            }
+    
+            class TexteAvecTrous {
+    
+            }
+    
+            class InterfaceFiche {
+    
+            }
+
+            class IconFiche {
+    
+            }
+
+            class Translator {
+    
+            }
+    
+}
+
 package Model {
 
     class Fiche {
@@ -18,26 +42,12 @@ package Model {
 
     }
 
-    Fiche "1" <-- "*" Enonce
-    Fiche "1" <-- "*" Question
+    Fiche "1" -- "*" Enonce : appartient à 
+    Fiche "1" -- "*" Question : appartient à
 
-    ModelReveasy "1" <-- "*" Fiche 
+    ModelReveasy "1" -- "*" Fiche : contient
 
-    package Inutilisé {
-            
-            class MotCle {
     
-            }
-    
-            class TexteAvecTrous {
-    
-            }
-    
-            class InterfaceFiche {
-    
-            }
-    
-    }
 
 }
 
@@ -47,16 +57,16 @@ package GUI {
 
     }
 
-    VueMesFiches "1" <--  IHM
-    VueEditeur "1" <--  IHM
+    VueMesFiches "1" --  IHM
+    VueEditeur "1" --  IHM :  affiche
     
-    ControleurEditeur "1" <--  IHM
+    Controleur "1" -- IHM
 
-    MenuLateral "1" <--  IHM
+    MenuLateral "1" --  IHM :  contient
 
-    ActionMenuSelector "1" <--  MenuLateral
-    ActionEnregistrer "1" <--  ControleurEditeur
-    ActionQuitter "1" <--  ControleurEditeur
+    ActionMenuSelector "1" --  MenuLateral
+    ActionEnregistrer "1" --  VueEditeur
+    ActionQuitter "1" --  Controleur
 
 
 }
@@ -65,6 +75,6 @@ package GUI {
 class Reveasy <<Classe principale>> {
 }
 
-ModelReveasy "1" <--  IHM 
+ModelReveasy "1" --  IHM : utilise
 
-Reveasy "1" <--  IHM 
+Reveasy "1" --  IHM : instancie
