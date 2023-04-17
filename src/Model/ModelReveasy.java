@@ -46,7 +46,6 @@ public class ModelReveasy {
      * @param contenu contenu de la fiche
      */
     public void ajouterFiche(String nomFiche,Fiche fiche) {
-        String path = System.getProperty("user.dir") + FICHES_PATH + "/" + nomFiche + "." + FICHES_EXTENSION;
         FileWriter myWriter;
 		try {
 			// Il faut que le dossier fiches existe

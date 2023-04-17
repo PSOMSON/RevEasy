@@ -1,3 +1,6 @@
+package Model;
+
+import javax.swing.JFrame;
 
 public class InterfaceFiche extends JFrame {
 

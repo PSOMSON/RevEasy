@@ -1,3 +1,4 @@
+package Model;
 
 // classe qui génère des mots clés à partir d'une fiche
 
