@@ -67,7 +67,7 @@ public class VueMesFiches extends JPanel {
 		textPane.setEditorKit(new HTMLEditorKit());
 
 		try {
-			FileReader reader = new FileReader(fiche.getContenu());
+			FileReader reader = new FileReader(fiche.getTitre());
 			textPane.read(reader, null);
 		} catch (FileNotFoundException e) {
 			System.out.println("Fichier non trouvé");

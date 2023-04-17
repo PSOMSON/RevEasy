@@ -35,7 +35,7 @@ public class IHM extends JFrame {
         this.vueMesFiches = new VueMesFiches(this, modele);
         this.vueEditeur = new VueEditeur(modele);
         this.compActuel = vueMesFiches;
-        ControleurEditeur controleur = new ControleurEditeur(this, this.vueEditeur, modele);
+        Controleur controleur = new Controleur(this, this.vueEditeur, modele);
         MenuLateral menuLateral = new MenuLateral(this, modele);
 
         

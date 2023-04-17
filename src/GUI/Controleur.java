@@ -6,9 +6,9 @@ import Model.ModelReveasy;
 
 import java.awt.*;
 
-public class ControleurEditeur extends JPanel {
+public class Controleur extends JPanel {
 
-    public ControleurEditeur(JFrame fenetre, JPanel editeur, ModelReveasy modele) {
+    public Controleur(JFrame fenetre, JPanel editeur, ModelReveasy modele) {
         super(new FlowLayout());
 
         // Ajouter un bouton quitter.

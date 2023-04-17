@@ -7,6 +7,7 @@ import javax.swing.JPanel;
 
 import Model.ModelReveasy;
 
+/** Vue du menu lateral. */
 public class MenuLateral extends JPanel {
 
 
