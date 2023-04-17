@@ -2,6 +2,7 @@ package GUI;
 
 import javax.swing.*;
 
+import Model.Fiche;
 import Model.ModelReveasy;
 
 import java.awt.*;
@@ -18,7 +19,7 @@ public class IHM extends JFrame {
     private VueMesFiches vueMesFiches;
 
     /** Panel correspondant à l'éditeur. */
-    private JEditorPane editeur;
+    private VueEditeur vueEditeur;
 
     /** Modèle. */
     private ModelReveasy modele;
@@ -32,9 +33,9 @@ public class IHM extends JFrame {
         
         this.modele = new ModelReveasy();
         this.vueMesFiches = new VueMesFiches(this, modele);
-        this.editeur = new VueEditeur();
+        this.vueEditeur = new VueEditeur(modele);
         this.compActuel = vueMesFiches;
-        ControleurEditeur controleur = new ControleurEditeur(this, this.editeur, modele);
+        ControleurEditeur controleur = new ControleurEditeur(this, this.vueEditeur, modele);
         MenuLateral menuLateral = new MenuLateral(this, modele);
 
         
@@ -65,10 +66,24 @@ public class IHM extends JFrame {
                 compActuel = this.vueMesFiches;
                 break;
             case CREER:
+                String nomFiche = JOptionPane.showInputDialog("nomFiche:");
+                if (nomFiche != null && nomFiche.length() > 0) {
+                    // User clicked OK
+                    modele.ajouterFiche(nomFiche, new Fiche(nomFiche, ""));
+                } else if(nomFiche.length() == 0){
+                    JOptionPane.showMessageDialog(null, "Le nom de la fiche ne peut pas être vide ! ");
+                    setPanelPrincipal(composant);;
+                } else {
+                    // User clicked Cancel or closed the dialog box
+                    setPanelPrincipal(MenuLateral.ComposantPrincipaux.MESFICHES);
+                }
+
+
                 // Vider l'éditeur avant de revenir dessus.
-                editeur.setText("");
-                this.add(editeur);
-                compActuel = editeur;
+                vueEditeur.setNomFiche(nomFiche);
+                vueEditeur.setContenu("");
+                this.add(vueEditeur);
+                compActuel = vueEditeur;
                 break;
         }
         // Mettre à jour la fenêtre

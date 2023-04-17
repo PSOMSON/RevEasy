@@ -1,17 +1,18 @@
 package GUI;
 
 import javax.swing.*;
-import javax.swing.text.JTextComponent;
+
 
 import Model.Fiche;
 import Model.ModelReveasy;
 
 import java.awt.event.*;
 
+
 public class ActionEnregistrer implements ActionListener {
 
     /** Zone de texte associé au bouton qui contient le nom de la fiche à enregistrer. */
-    JTextComponent zoneTexte;
+    String nomFiche;
 
     /** Editeur associé, qui contient le contenu. */
     JEditorPane editeur;
@@ -19,22 +20,21 @@ public class ActionEnregistrer implements ActionListener {
     /** Modele. */
     ModelReveasy modele;
 
-    public ActionEnregistrer(JTextComponent zoneTexte, JEditorPane editeur, ModelReveasy modele) {
-        this.zoneTexte = zoneTexte;
+    public ActionEnregistrer(String nomFichier, JEditorPane editeur, ModelReveasy modele) {
+        this.nomFiche = nomFichier;
         this.editeur = editeur;
         this.modele = modele;
     }
 
+    public void setNomFiche(String nomFiche) {
+        this.nomFiche = nomFiche;
+    }
+
     @Override
     public void actionPerformed(ActionEvent ev) {
-        String nom = this.zoneTexte.getText();
-        if (nom.equals("")) {
-            JOptionPane.showMessageDialog(editeur, "Le nom de la fiche ne peut pas être vide ! ");
-        }
-        else {
-            // Enregistrer la fiche.
-        	modele.ajouterFiche(nom, new Fiche(nom, editeur.getText()));
-        }
+        String contenu = this.editeur.getText();
+        // Enregistrer la fiche.
+        modele.ajouterFiche(nomFiche, new Fiche(nomFiche, contenu));
     }
 
 }
