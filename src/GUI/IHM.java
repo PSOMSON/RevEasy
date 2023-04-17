@@ -39,12 +39,13 @@ public class IHM extends JFrame {
         MenuLateral menuLateral = new MenuLateral(this, modele);
 
         
-        this.setLayout(new BorderLayout());
+        this.setLayout(new BorderLayout(8,2));
         this.add(compActuel, BorderLayout.CENTER);
         this.add(controleur, BorderLayout.SOUTH);
         this.add(menuLateral, BorderLayout.WEST);
         this.pack();
         this.setSize(LARGEUR_DEFAUT, HAUTEUR_DEFAUT);
+        this.setMinimumSize(new Dimension(LARGEUR_DEFAUT / 2, HAUTEUR_DEFAUT / 2));
         this.setVisible(true);
     }
 
@@ -66,7 +67,7 @@ public class IHM extends JFrame {
                 compActuel = this.vueMesFiches;
                 break;
             case CREER:
-                String nomFiche = JOptionPane.showInputDialog("nomFiche:");
+                String nomFiche = JOptionPane.showInputDialog("Nom de la fiche:");
                 if (nomFiche != null && nomFiche.length() > 0) {
                     // User clicked OK
                     modele.ajouterFiche(nomFiche, new Fiche(nomFiche, ""));
