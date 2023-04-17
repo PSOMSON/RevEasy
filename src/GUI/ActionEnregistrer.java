@@ -8,9 +8,6 @@ import Model.ModelReveasy;
 
 import java.awt.event.*;
 
-import java.io.FileWriter;
-import java.io.IOException;
-
 public class ActionEnregistrer implements ActionListener {
 
     /** Zone de texte associé au bouton qui contient le nom de la fiche à enregistrer. */
