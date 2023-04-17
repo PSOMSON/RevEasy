@@ -4,7 +4,6 @@ import javax.swing.JFrame;
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
-import javax.swing.JFrame;
 
 public class InterfaceFiche extends JFrame {
 
