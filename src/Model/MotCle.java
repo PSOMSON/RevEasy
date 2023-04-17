@@ -38,7 +38,7 @@ public class MotCle {
         this.nbOccurence++;
     }
 
-    @Override
+    
     public String toString(Fiche fiche) {
         // choisir le mot clé renvoyé par la méthode getMotCle() en fonction du nombre
         // d'occurence
