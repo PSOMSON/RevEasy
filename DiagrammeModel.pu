@@ -1,0 +1,46 @@
+@startuml diagramme1
+
+class Fiche {
+    -Titre: String
+    -Contenu: String
+    __
+    +getTitre(): String
+    +getQuestions(): List<Question>
+    +getTheoremes(): List<Enonce>
+    +getDefinitions(): List<Enonce>
+    __
+    +Fiche(Titre: String, Contenu: String)
+}
+
+class Enonce {
+    -Titre: String
+    -Contenu: String
+    __
+    +getTitre(): String
+    +getContenu(): String
+    __
+    +Enonce(Titre: String, Contenu: String)
+}
+
+enum Type {
+    +THEOREME
+    +DEFINITION
+}
+
+class Question {
+    -Titre: String
+    -Reponses: String
+    __
+    +getTitre(): String
+    +getReponses(): String[]
+    +estJuste(Reponse: String): Boolean
+    __
+    +Question(Titre: String, ReponseJustes: String[], ReponseFausses: String[])
+}
+
+
+Fiche "1" -- "0..*" Enonce : contient
+Fiche "1" -- "0..*" Question : contient
+Enonce "1" -- "1" Type : est de type
+
+@enduml
