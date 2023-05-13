@@ -20,3 +20,13 @@
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
+
+# Pour les utilisateurs de IntelliJ qui comme moi on mit 4 HEURES A OUVRIR CE PUTAIN DE PROJET
+# et qui ont un "out" qui se balade au milieu de src (faut de mieux...)
+out/
+
+#...et le .idea qui va avec
+.idea/
+
+#...suivi des .iml que IntelliJ génère gracieusement
+*.iml

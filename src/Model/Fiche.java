@@ -13,6 +13,10 @@ public class Fiche {
 
     private String titre;
     private List<String> texte;
+<<<<<<< HEAD
+=======
+    private String contenu; // Sert pour réafficher le contenu plus tard si on veut modifier la fiche.
+>>>>>>> f2b7478df52b546b59cebb47572325abc167d090
 
     private final Map<Enonce.Type, String> balises = Map.of(Enonce.Type.DEFINITION, "@Definition", Enonce.Type.THEOREME,
             "@Theoreme");
@@ -25,6 +29,7 @@ public class Fiche {
      */
     public Fiche(String titre, String contenu) {
         this.titre = titre;
+        this.contenu = contenu;
         this.texte = new ArrayList<>();
 
         // Découper le contenu en ligne de contenu
@@ -117,6 +122,7 @@ public class Fiche {
 
     /**
      * Obtenir le contenu (brut) de la fiche.
+<<<<<<< HEAD
      * 
      * @return
      */
@@ -128,6 +134,12 @@ public class Fiche {
         }
 
         return contenu.toString();
+=======
+     * @return
+     */
+    public String getContenu() {
+        return this.contenu;
+>>>>>>> f2b7478df52b546b59cebb47572325abc167d090
     }
 
     /**
@@ -153,6 +165,27 @@ public class Fiche {
             }
         }
         return enonces;
+    }
+    // on peut ajouter le tag @textatrou au début et à la fin des textes
+    /**
+     * Obtenir la liste des textes à réviser.
+     * @param contenu Contenu de la fiche
+     * @return Liste des textes à réviser
+     */
+    public  List<String> getTexteATrouver() {
+        String tag = "@textatrou";
+        List<String> result = new ArrayList<String>();
+        int startIndex = contenu.indexOf(tag);
+        while (startIndex != -1) {
+            int endIndex = contenu.indexOf(tag, startIndex + 1);
+            if (endIndex == -1) {
+                break;
+            }
+            String extractedText = contenu.substring(startIndex + tag.length()+1, endIndex).trim();
+            result.add(extractedText);
+            startIndex = contenu.indexOf(tag, endIndex + 1);
+        }
+        return result;
     }
 
 }
