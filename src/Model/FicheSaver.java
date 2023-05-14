@@ -8,17 +8,16 @@ import java.io.FileWriter;
  * Classe qui sert d'inteface entre les fiches et les fichiers
  */
 public class FicheSaver {
-    
+
     public static final String REVEASY_FOLDER = "Reveasy";
     public static final String FICHES_FOLDER = "Fiches";
 
-    private File fichesDir;
+    private static File fichesDir;
 
     /**
      * Constructeur, verifie l'architecture du dossier de sauvegarde
      */
-    public FicheSaver() {
-        
+    static {
         String homepath = System.getProperty("user.home");
 
         // Verifier l'architecture du dossier de sauvegarde
@@ -27,7 +26,7 @@ public class FicheSaver {
         // Sinon, ne rien faire
 
         File home = new File(homepath);
-        
+
         if (home.exists()) {
             File reveasyDir = new File(homepath + File.separator + REVEASY_FOLDER);
             if (!reveasyDir.exists()) {
@@ -39,28 +38,29 @@ public class FicheSaver {
             }
         } else {
             System.out.println("Erreur : impossible de trouver le dossier utilisateur");
-        } 
+        }
     }
 
     /**
      * Sauvegarder une fiche
+     *
      * @param fiche
      */
-    public void sauvegarder(Fiche fiche) {
+    public static void sauvegarder(Fiche fiche) {
 
         File ficheFile = new File(fichesDir.toPath() + File.separator + fiche.getTitre() + ".txt");
 
         try (FileWriter writer = new FileWriter(ficheFile)) {
-            
+
             writer.write(fiche.getContenu());
 
         } catch (Exception e) {
             // TODO: handle exception
-        }        
+        }
     }
 
-    public Fiche ouvrir(String path) {
-        
+    public static Fiche ouvrir(String path) {
+
         File ficheFile = new File(path);
 
         if (!ficheFile.exists()) {
@@ -70,7 +70,7 @@ public class FicheSaver {
         }
 
         try (FileReader reader = new FileReader(ficheFile)) {
-            
+
             String contenu = "";
             int c;
             while ((c = reader.read()) != -1) {
@@ -78,7 +78,7 @@ public class FicheSaver {
             }
 
             // Extraire le titre de la fiche du path
-            final String FOLDER = "Reveasy/Fiches/";  
+            final String FOLDER = "Reveasy/Fiches/";
             String titre = path.substring(path.indexOf(FOLDER) + FOLDER.length(), path.length() - ".txt".length());
 
             return new Fiche(titre, contenu);

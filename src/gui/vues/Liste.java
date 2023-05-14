@@ -52,11 +52,10 @@ public class Liste extends Vue {
                 if (node.isLeaf()) {
                     String ficheName = node.toString();
                     String homePath = System.getProperty("user.home");
-                    File ficheFile = new File(homePath + File.separator + "Reveasy"
-                                                       + File.separator + "Fiches"
-                                                       + File.separator + ficheName);
-                    String fichePath = ficheFile.getAbsolutePath();
-                    Fiche fiche = new FicheSaver().ouvrir(fichePath);
+                    String fichePath = homePath + File.separator + "Reveasy"
+                            + File.separator + "Fiches"
+                            + File.separator + ficheName;
+                    Fiche fiche = FicheSaver.ouvrir(fichePath);
                     c.ouvrir(fiche);
                 }
             }
@@ -67,8 +66,8 @@ public class Liste extends Vue {
 
         DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("Reveasy");
         String homePath = System.getProperty("user.home");
-        File rootFolder = new File(homePath + File.separator + "Reveasy"
-                                            + File.separator + "Fiches");
+        File rootFolder = new File(homePath + File.separator + FicheSaver.REVEASY_FOLDER
+                                            + File.separator + FicheSaver.FICHES_FOLDER);
         createTreeNodes(rootFolder, rootNode);
         DefaultTreeModel treeModel = new DefaultTreeModel(rootNode);
         tree.setModel(treeModel);

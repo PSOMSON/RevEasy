@@ -33,7 +33,7 @@ public class Editeur extends JPanel {
         JTextField title = new JTextField("Titre");
         JButton save = new JButton("Sauvegarder");
         save.addActionListener(e -> {
-            new FicheSaver().sauvegarder(new Fiche(title.getText(), textbox.getText()));
+            FicheSaver.sauvegarder(new Fiche(title.getText(), textbox.getText()));
         });
 
         controleurs.add(title);
