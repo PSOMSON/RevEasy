@@ -3,15 +3,17 @@ package gui.vues;
 import java.awt.BorderLayout;
 
 import javax.swing.JSplitPane;
-import javax.swing.JTextArea;
+import javax.swing.JTextPane;
+import javax.swing.text.html.HTMLEditorKit;
 
 import Model.Fiche;
+import Model.Traducteur;
 import gui.IHM;
 
 public class Consultation extends Vue {
 
     /** Zone d'affichage du texte de la fiche. */
-    private JTextArea zoneTexte;
+    private JTextPane zoneTexte;
 
     /**
      * Initialiser la vue.
@@ -24,7 +26,7 @@ public class Consultation extends Vue {
 
         Liste fiches = new Liste(this);
 
-        zoneTexte = new JTextArea();
+        zoneTexte = new JTextPane();
         zoneTexte.setEditable(false);
         zoneTexte.setText("Salut a tous\nc'est david la farge pokemon !");
 
@@ -44,6 +46,8 @@ public class Consultation extends Vue {
      * @param f Fiche à ouvrir
      */
     public void ouvrir(Fiche f) {
-        zoneTexte.setText(f.getContenu());
+        zoneTexte.setEditorKit(new HTMLEditorKit());
+        String contenu = "<html>\n" + Traducteur.mdToHtml(f.getContenu());
+        zoneTexte.setText(contenu);
     }
 }
