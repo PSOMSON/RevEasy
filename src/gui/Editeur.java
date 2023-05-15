@@ -17,7 +17,6 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import Model.Fiche;
 import Model.FicheSaver;
-import Model.ActionStyle;
 
 /**
  * Classe pour afficher la zone d'édition d'une fiche.
@@ -26,10 +25,6 @@ public class Editeur extends JPanel {
     
     /** Zone d'édition */
     private JTextPane textbox;
-
-    /** tableau des actions de style. Contient l'action à réaliser ainsi que 
-     * les indices de début et de fin de la séléction concernée.*/
-    private SortedSet<ActionStyle> actionsStyle;
 
     /**
      * Initialiser le composant.
@@ -54,7 +49,8 @@ public class Editeur extends JPanel {
         JTextField title = new JTextField("Titre");
         JButton save = new JButton("Sauvegarder");
         save.addActionListener(e -> {
-            FicheSaver.sauvegarder(new Fiche(title.getText(), textbox.getText()));
+            Fiche fiche = new Fiche(title.getText(), textbox.getText());
+            FicheSaver.sauvegarder(fiche);
         });
 
         controleurs.add(title);
@@ -78,17 +74,7 @@ public class Editeur extends JPanel {
         actions.add(underline);
 
         this.add(actions, BorderLayout.NORTH);
-
-        // Initialisation de l'ensemble des actions de style
-        this.actionsStyle = new TreeSet<>();
     }
 
-    /**
-     * Ajouter une action de style à la liste des actions de style.
-     * @param actionStyle Action de style à ajouter
-     */
-    public void addActionStyle(ActionStyle actionStyle) {
-        this.actionsStyle.add(actionStyle);
-    }
-    
+
 }
