@@ -5,7 +5,6 @@ import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
@@ -15,7 +14,6 @@ import Model.Enonce;
 import Model.Fiche;
 import Model.TexteAvecTrous;
 import gui.AfficheurFiche;
-import gui.Editeur;
 import gui.IHM;
 import gui.PopUpOpenFiche;
 
@@ -155,7 +153,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private void buttonClicked(ActionEvent e) {
 		if (e.getSource() == revealButton) {
             // Show the answer
-            String theorem = theoremList.get(currentTheoremIndex).getTitre();
+            //String theorem = theoremList.get(currentTheoremIndex).getTitre();
             String answer =  theoremList.get(currentTheoremIndex).getCorps();
             theoremLabel.setText(answer);
         } else if (e.getSource() == nextButton) {
