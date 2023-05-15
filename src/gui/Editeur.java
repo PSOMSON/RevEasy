@@ -1,17 +1,13 @@
 package gui;
 
 import java.awt.BorderLayout;
-import java.util.HashMap;
 
 import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
-import javax.swing.JMenu;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.JTextPane;
-import javax.swing.event.CaretListener;
-import javax.swing.text.JTextComponent;
 import javax.swing.text.StyledEditorKit;
 
 import Model.Fiche;
