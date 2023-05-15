@@ -9,6 +9,7 @@ import java.io.FileWriter;
  */
 public class FicheSaver {
 
+    public static final String HOME_FOLDER = System.getProperty("user.home");
     public static final String REVEASY_FOLDER = "Reveasy";
     public static final String FICHES_FOLDER = "Fiches";
 

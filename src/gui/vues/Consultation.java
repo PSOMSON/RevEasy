@@ -47,7 +47,11 @@ public class Consultation extends Vue {
      */
     public void ouvrir(Fiche f) {
         zoneTexte.setEditorKit(new HTMLEditorKit());
-        String contenu = "<html>\n" + Traducteur.mdToHtml(f.getContenu());
+
+        String contenu = Traducteur.mdToHtml(f.getContenu());
+        contenu = Traducteur.balises(contenu);
+        contenu = "<h><b><center>"+f.getTitre()+"</center></b></h><br><br>" + contenu;
+        contenu = "<html>" + contenu;
         zoneTexte.setText(contenu);
     }
 }
