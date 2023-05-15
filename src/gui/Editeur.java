@@ -1,6 +1,8 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.io.File;
+import java.io.Writer;
 
 import javax.swing.Action;
 import javax.swing.BoxLayout;
