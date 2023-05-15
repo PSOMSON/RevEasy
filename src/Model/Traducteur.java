@@ -19,6 +19,10 @@ public class Traducteur {
         return html;
     }
 
+    /**
+     * @param texte
+     * @return
+     */
     public static String balises(String texte){
         String html = texte;
         html = html.replaceAll("@Definition(.*?)", "<b>Definition : </b>$1");
@@ -26,6 +30,8 @@ public class Traducteur {
         html = html.replaceAll("@Remarque(.*?)", "<b>Remarque : </b>$1");
         html = html.replaceAll("@Theoreme(.*?)", "<b>Theoreme : </b>$1");
         html = html.replaceAll("@Question(.*?)", "<b>Question : </b>$1");
+        html = html.replaceAll("@ReponseV(.*?)", "<font color=\"green\"><b> --> </b></font>$1");
+        html = html.replaceAll("@ReponseF(.*?)", "<font color=\"red\"><b> --> </b></font>$1");
         return html;
     }
 
