@@ -73,7 +73,8 @@ public class Arborescence extends JPanel {
                                                + File.separator + "Fiches"
                                                + File.separator + ficheName);
             String fichePath = ficheFile.getAbsolutePath();
-            return new FicheSaver().ouvrir(fichePath);
+            new FicheSaver();
+            return FicheSaver.ouvrir(fichePath);
         }
         return null;
     }

@@ -13,6 +13,7 @@ import javax.swing.JPanel;
 
 import Model.Enonce;
 import Model.Fiche;
+import Model.TexteAvecTrous;
 import gui.AfficheurFiche;
 import gui.Editeur;
 import gui.IHM;
@@ -69,6 +70,10 @@ public class Reviser extends Vue implements AfficheurFiche {
         choixTest.add(testFlashCards);
         choixTest.add(testTexteAtrou);
         testFlashCards.addActionListener(e->{startTestFlashCards(f);});
+        TexteAvecTrous TexteAvecTrous = new TexteAvecTrous(f.getTexteATrouver());
+        
+        ReviserText reviserText= new ReviserText(f.getTexteATrouver(), TexteAvecTrous.genererTexteAvecTrous()) ;
+        testTexteAtrou.addActionListener(e->{startTestAtROU( f, reviserText);});
         
         
         // Ajouter les deux zones à la vue en les séparant
@@ -128,6 +133,24 @@ public class Reviser extends Vue implements AfficheurFiche {
         this.repaint();
 		
 	}
+    private void startTestAtROU(Fiche fiche,ReviserText reviserText) {
+	
+
+		
+		// Ajouter les deux zones à la vue en les séparant
+        JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
+        reviserText.afficher());
+        layout.setSize(this.getSize());
+        
+        // Change les elements de la vue
+        this.removeAll();
+        this.add(layout, BorderLayout.CENTER);
+        this.revalidate();
+        this.repaint();
+		
+	}
+    
+
 	
 	private void buttonClicked(ActionEvent e) {
 		if (e.getSource() == revealButton) {

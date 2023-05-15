@@ -50,6 +50,7 @@ public class Consultation extends Vue {
 
         String contenu = Traducteur.mdToHtml(f.getContenu());
         contenu = Traducteur.balises(contenu);
+        contenu = "<h><b><center>"+f.getTitre()+"</center></b></h><br><br>" + contenu;
         contenu = "<html>" + contenu;
         zoneTexte.setText(contenu);
     }
