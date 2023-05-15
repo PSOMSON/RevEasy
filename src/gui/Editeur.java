@@ -3,6 +3,8 @@ package gui;
 import java.awt.BorderLayout;
 import java.io.File;
 import java.io.Writer;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.swing.Action;
 import javax.swing.BoxLayout;
@@ -15,17 +17,19 @@ import javax.swing.text.html.HTMLEditorKit;
 
 import Model.Fiche;
 import Model.FicheSaver;
+import Model.ActionStyle;
 
 /**
  * Classe pour afficher la zone d'édition d'une fiche.
  */
 public class Editeur extends JPanel {
     
-    /** Contenu temporaire de la fiche */
-    private String contenu;
-
     /** Zone d'édition */
     private JTextPane textbox;
+
+    /** tableau des actions de style. Contient l'action à réaliser ainsi que 
+     * les indices de début et de fin de la séléction concernée.*/
+    private SortedSet<ActionStyle> actionsStyle;
 
     /**
      * Initialiser le composant.
@@ -59,21 +63,32 @@ public class Editeur extends JPanel {
 
         // Ajout des actions d'édition
         Action boldAction = new StyledEditorKit.BoldAction();
-        boldAction.putValue(Action.NAME, "Bold");
+        boldAction.putValue(Action.NAME, "Gras");
         JButton bold = new JButton(boldAction);
         actions.add(bold);
 
         Action italicAction = new StyledEditorKit.ItalicAction();
-        italicAction.putValue(Action.NAME, "Italic");
+        italicAction.putValue(Action.NAME, "Italique");
         JButton italic = new JButton(italicAction);
         actions.add(italic);
 
         Action underlineAction = new StyledEditorKit.UnderlineAction();
-        underlineAction.putValue(Action.NAME, "Underline");
+        underlineAction.putValue(Action.NAME, "Souligné");
         JButton underline = new JButton(underlineAction);
         actions.add(underline);
 
         this.add(actions, BorderLayout.NORTH);
 
+        // Initialisation de l'ensemble des actions de style
+        this.actionsStyle = new TreeSet<>();
     }
+
+    /**
+     * Ajouter une action de style à la liste des actions de style.
+     * @param actionStyle Action de style à ajouter
+     */
+    public void addActionStyle(ActionStyle actionStyle) {
+        this.actionsStyle.add(actionStyle);
+    }
+    
 }
