@@ -19,4 +19,14 @@ public class Traducteur {
         return html;
     }
 
+    public static String balises(String texte){
+        String html = texte;
+        html = html.replaceAll("@Definition(.*?)", "<b>Definition : </b>$1");
+        html = html.replaceAll("@Exemple(.*?)", "<b>Exemple : </b>$1");
+        html = html.replaceAll("@Remarque(.*?)", "<b>Remarque : </b>$1");
+        html = html.replaceAll("@Theoreme(.*?)", "<b>Theoreme : </b>$1");
+        html = html.replaceAll("@Question(.*?)", "<b>Question : </b>$1");
+        return html;
+    }
+
 }
