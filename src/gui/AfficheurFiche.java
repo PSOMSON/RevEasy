@@ -13,4 +13,5 @@ public interface AfficheurFiche {
      */
     void openFiche(Fiche f);
 
+
 }
