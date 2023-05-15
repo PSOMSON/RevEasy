@@ -28,7 +28,7 @@ public class Consultation extends Vue {
 
         zoneTexte = new JTextPane();
         zoneTexte.setEditable(false);
-        zoneTexte.setText("Salut a tous\nc'est david la farge pokemon !");
+        zoneTexte.setText("Pour consulter une fiche : cliquer sur une des fiches dans l'explorateur de fiches.");
 
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fiches,
                                                                         zoneTexte);
