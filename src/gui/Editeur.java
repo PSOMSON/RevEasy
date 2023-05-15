@@ -27,22 +27,11 @@ public class Editeur extends JPanel {
     /** Zone d'édition */
     private JTextPane textbox;
 
-    /** Titre temporaire */
-    private String tempTitle;
-
-    /** Chemin où se situe le fichier temporaire */
-    private String tempPath;
-
     /**
      * Initialiser le composant.
      */
     public Editeur() {
         super(new BorderLayout());
-
-        // Creation du nom temporaire
-        tempTitle = "temp" + System.currentTimeMillis();
-        tempPath = FicheSaver.HOME_FOLDER + File.separator + FicheSaver.REVEASY_FOLDER + File.separator
-                + "temp" + File.separator + tempTitle + ".html";
 
         // Créer la zone d'édition
         textbox = new JTextPane();
@@ -84,57 +73,7 @@ public class Editeur extends JPanel {
         JButton underline = new JButton(underlineAction);
         actions.add(underline);
 
-        JButton refreshButton = new JButton("Refresh");
-        refreshButton.addActionListener(e -> {
-            refresh();
-        });
-        actions.add(refreshButton);
-
         this.add(actions, BorderLayout.NORTH);
 
-    }
-
-    private void refresh() {
-
-    }
-
-    private void writeTemp(){
-        try {
-            Writer writer = new java.io.FileWriter(tempPath);
-            textbox.write(writer);
-        } catch (Exception e) {
-            System.out.println("Erreur : impossible d'écrire dans le fichier temporaire");
-        }
-
-    }
-
-    /** Crée le fichier temporaire et son dossier s'il n'existe pas */
-    private void createFile(){
-
-        String homepath = FicheSaver.HOME_FOLDER;
-
-        File home = new File(homepath);
-
-        // Créer le dossier temp si il n'existe pas
-        if (home.exists()) {
-            File reveasyDir = new File(homepath + File.separator + FicheSaver.REVEASY_FOLDER);
-            if (!reveasyDir.exists()) {
-                reveasyDir.mkdir();
-            }
-            File tempFileDir = new File(homepath + File.separator + FicheSaver.REVEASY_FOLDER + File.separator + "temp");
-            if (!tempFileDir.exists()) {
-                tempFileDir.mkdir();
-            }
-        } else {
-            System.out.println("Erreur : impossible de trouver le dossier utilisateur");
-        }
-
-        // Créer le fichier temporaire
-        File tempFile = new File(homepath + File.separator + FicheSaver.REVEASY_FOLDER + File.separator + "temp" + File.separator + tempTitle + ".html");
-        try {
-            tempFile.createNewFile();
-        } catch (Exception e) {
-            System.out.println("Erreur : impossible de créer le fichier temporaire");
-        }
     }
 }
