@@ -17,10 +17,13 @@ import Model.FicheSaver;
 /**
  * Classe pour afficher la zone d'édition d'une fiche.
  */
-public class Editeur extends JPanel {
+public class Editeur extends JPanel implements AfficheurFiche {
     
     /** Zone d'édition */
     private JTextPane textbox;
+
+    /** Zone du titre. */
+    private JTextField title;
 
     /**
      * Initialiser le composant.
@@ -42,15 +45,23 @@ public class Editeur extends JPanel {
         actions.setLayout(new BoxLayout(actions, BoxLayout.X_AXIS));
 
         // Ajout de la sauvegarde et du titre dans les controlleurs
-        JTextField title = new JTextField("Titre");
+        this.title = new JTextField("Titre");
         JButton save = new JButton("Sauvegarder");
         save.addActionListener(e -> {
             Fiche fiche = new Fiche(title.getText(), textbox.getText());
             FicheSaver.sauvegarder(fiche);
         });
 
+        // Ajout d'un bouton pour ouvrir une fiche.
+        JButton open = new JButton("Ouvrir");
+        open.addActionListener(e -> {
+            PopUpOpenFiche popUp = new PopUpOpenFiche(this);
+            popUp.setVisible(true);
+        });
+
         controleurs.add(title);
         controleurs.add(save);
+        controleurs.add(open);
         this.add(controleurs, BorderLayout.SOUTH);
 
         // Ajout des actions d'édition
@@ -72,5 +83,10 @@ public class Editeur extends JPanel {
         this.add(actions, BorderLayout.NORTH);
     }
 
+    @Override
+    public void openFiche(Fiche f) {
+        textbox.setText(f.getContenu());
+        title.setText(f.getTitre());
+    }
 
 }
