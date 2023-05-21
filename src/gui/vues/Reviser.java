@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
 import javax.swing.JPanel;
+import javax.swing.JOptionPane;
 
 import Model.Enonce;
 import Model.Fiche;
@@ -89,8 +90,11 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private void startTestFlashCards(Fiche fiche) {
 		// Créer la zone du test
 		JPanel testZone = new JPanel(new BorderLayout());
-
 	    theoremList = fiche.getTheoremes();
+	    if (theoremList.size() == 0) {
+	    	JOptionPane.showMessageDialog(null, "La liste des theoremes est vide.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+	    	return;
+	    }
         currentTheoremIndex = 0;
 
 
