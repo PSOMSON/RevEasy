@@ -2,6 +2,7 @@ package gui.vues;
 
 import java.awt.BorderLayout;
 
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLEditorKit;
@@ -29,9 +30,10 @@ public class Consultation extends Vue {
         zoneTexte = new JTextPane();
         zoneTexte.setEditable(false);
         zoneTexte.setText("Pour consulter une fiche : cliquer sur une des fiches dans l'explorateur de fiches.");
-
+        JScrollPane ficheScrollPane = new JScrollPane(zoneTexte);
+        
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fiches,
-                                                                        zoneTexte);
+        		ficheScrollPane);
         layout.setSize(this.getSize());
 
         JSplitPane generalLayout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT,

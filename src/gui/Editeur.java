@@ -1,6 +1,9 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.Action;
 import javax.swing.BoxLayout;
@@ -65,21 +68,55 @@ public class Editeur extends JPanel implements AfficheurFiche {
         this.add(controleurs, BorderLayout.SOUTH);
 
         // Ajout des actions d'édition
+        JPanel leftActions = new JPanel(new FlowLayout(FlowLayout.LEFT));
         Action boldAction = new StyledEditorKit.BoldAction();
         boldAction.putValue(Action.NAME, "Gras");
         JButton bold = new JButton(boldAction);
-        actions.add(bold);
+        leftActions.add(bold);
 
         Action italicAction = new StyledEditorKit.ItalicAction();
         italicAction.putValue(Action.NAME, "Italique");
         JButton italic = new JButton(italicAction);
-        actions.add(italic);
+        leftActions.add(italic);
 
         Action underlineAction = new StyledEditorKit.UnderlineAction();
         underlineAction.putValue(Action.NAME, "Souligné");
         JButton underline = new JButton(underlineAction);
-        actions.add(underline);
+        leftActions.add(underline);
+        
+        // Ajout des actions
+        JPanel rightActions = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        JButton definition = new JButton("@Definition");
+        JButton theoreme = new JButton("@Theoreme");
+        JButton qcm = new JButton("@QCM");
+        
+        definition.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textbox.requestFocusInWindow();
+                textbox.replaceSelection("\n\n@Definition mot\nla definition du mot sur cette ligne");
+            }
+        });
 
+        theoreme.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textbox.requestFocusInWindow();
+                textbox.replaceSelection("\n\n@Theoreme nom du théorème\nénoncé du théorème sur cette ligne");
+            }
+        });
+
+        qcm.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                textbox.requestFocusInWindow();
+                textbox.replaceSelection("\n\n@Question question ?\n@ReponseV Réponse vraie\n@ReponseF Réponse fausse\n@ReponseF Réponse fausse");
+            }
+        });
+        rightActions.add(definition);
+        rightActions.add(theoreme);
+        rightActions.add(qcm);
+        actions.add(leftActions);
+        actions.add(rightActions);
+        
+        
         this.add(actions, BorderLayout.NORTH);
     }
 
