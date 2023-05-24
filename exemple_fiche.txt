@@ -1,31 +1,109 @@
-Titre de la fiche
+<html>
+  <head>
 
-@Definition mot
-la definition du mot sur cette ligne
-
-@Definition mot2
-la definition du mot sur cette ligne!
-
-@Theoreme nom du théorème
-énoncé du théorème sur cette ligne
-@text
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-Nullam bibendum tortor est, vitae consequat massa imperdiet nec. 
-Sed eu sem magna. Vestibulum iaculis dui sapien, in porta lorem luctus ac. 
-Donec ac sem viverra, dapibus arcu non, auctor erat. Suspendisse non eros eget augue congue fringilla. 
-Maecenas sapien dolor, aliquet at elit quis, tristique vulputate magna. Sed tempus nunc leo, at auctor eros dictum quis. 
-Phasellus ac viverra nulla. Proin fermentum neque placerat tincidunt laoreet. 
-Integer eu lacus ut ante semper facilisis in pulvinar neque. Praesent non leo euismod, 
-fringilla velit ac, hendrerit elit. Morbi blandit ex in est tempor ornare. 
-Etiam vulputate metus nibh, sed lobortis sem consequat nec. 
-@text
-
-@Question Le latin est une langue morte ?
-@ReponseV Oui
-@ReponseF Non
-
-@Question Java est ...
-@ReponseF un language impératif
-@ReponseV un language orienté objet
-@ReponseF un type d'ordinateur
-
+  </head>
+  <body>
+    <p style="margin-top: 0">
+      Titre de la fiche
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+    <p style="margin-top: 0">
+      @Definition mot
+    </p>
+    <p style="margin-top: 0">
+      la definition du mot sur cette ligne
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+    <p style="margin-top: 0">
+      @Definition mot2
+    </p>
+    <p style="margin-top: 0">
+      la definition du mot sur cette ligne!
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+    <p style="margin-top: 0">
+      @Theoreme nom du th&#233;or&#232;me
+    </p>
+    <p style="margin-top: 0">
+      &#233;nonc&#233; du th&#233;or&#232;me sur cette ligne
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+    <p style="margin-top: 0">
+      @text
+    </p>
+    <p style="margin-top: 0">
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
+    </p>
+    <p style="margin-top: 0">
+      Nullam bibendum tortor est, vitae consequat massa imperdiet nec. 
+    </p>
+    <p style="margin-top: 0">
+      Sed eu sem magna. Vestibulum iaculis dui sapien, in porta lorem luctus 
+      ac. 
+    </p>
+    <p style="margin-top: 0">
+      Donec ac sem viverra, dapibus arcu non, auctor erat. Suspendisse non 
+      eros eget augue congue fringilla. 
+    </p>
+    <p style="margin-top: 0">
+      Maecenas sapien dolor, aliquet at elit quis, tristique vulputate magna. 
+      Sed tempus nunc leo, at auctor eros dictum quis. 
+    </p>
+    <p style="margin-top: 0">
+      Phasellus ac viverra nulla. Proin fermentum neque placerat tincidunt 
+      laoreet. 
+    </p>
+    <p style="margin-top: 0">
+      Integer eu lacus ut ante semper facilisis in pulvinar neque. Praesent 
+      non leo euismod, 
+    </p>
+    <p style="margin-top: 0">
+      fringilla velit ac, hendrerit elit. Morbi blandit ex in est tempor 
+      ornare. 
+    </p>
+    <p style="margin-top: 0">
+      Etiam vulputate metus nibh, sed lobortis sem consequat nec. 
+    </p>
+    <p style="margin-top: 0">
+      @text
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+    <p style="margin-top: 0">
+      @Question Le latin est une langue morte ?
+    </p>
+    <p style="margin-top: 0">
+      @ReponseV Oui
+    </p>
+    <p style="margin-top: 0">
+      @ReponseF Non
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+    <p style="margin-top: 0">
+      @Question Java est ...
+    </p>
+    <p style="margin-top: 0">
+      @ReponseF un language imp&#233;ratif
+    </p>
+    <p style="margin-top: 0">
+      @ReponseV un language orient&#233; objet
+    </p>
+    <p style="margin-top: 0">
+      @ReponseF un type d'ordinateur
+    </p>
+    <p style="margin-top: 0">
+      
+    </p>
+  </body>
+</html>
