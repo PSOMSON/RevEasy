@@ -3,6 +3,7 @@ package gui.vues;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -59,15 +60,34 @@ public class Consultation extends Vue {
 		Image img = icon.getImage();
 		Image newimg = img.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
-
+		
 		JButton exportButton = new JButton("ExportPDF", icon);
 		exportButton.setBackground(Color.WHITE);
+		exportButton.setPreferredSize(new Dimension(exportButton.getPreferredSize().width,30));
 		exportButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				exportPDF(fiche);
 			}
 		});
 		options.add(exportButton);
+		
+		// Création de l'icône pour le bouton ExportPDF
+		icon = new ImageIcon("assets/delete.png");
+		img = icon.getImage();
+		newimg = img.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newimg);
+				
+		JButton deleteButton = new JButton(icon);
+		deleteButton.setBackground(Color.WHITE);
+		deleteButton.setPreferredSize(new Dimension(30,30));
+		deleteButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				supprimer(fiche);
+			}
+		});
+		
+		
+		options.add(deleteButton);
 		minilayout.add(options, BorderLayout.NORTH);
 
 		JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fiches, minilayout);
@@ -127,4 +147,43 @@ public class Consultation extends Vue {
 			}
 		}
 	}
+	
+	
+	/**
+	 * Supprimer une fiche.
+	 * 
+	 * @param f Fiche à supprimer
+	 */
+	public void supprimer(Fiche f) {
+	    if (f == null) {
+	        JOptionPane.showMessageDialog(null, "Veuillez ouvrir une fiche d'abord.", "Alert",
+	                JOptionPane.INFORMATION_MESSAGE);
+	    } else {
+	    	int choix = JOptionPane.showConfirmDialog(null, "Êtes-vous sûr de vouloir supprimer la fiche ?", "Confirmation de suppression",
+	                JOptionPane.YES_NO_OPTION);
+	        
+	        if (choix == JOptionPane.YES_OPTION) {
+	            String homePath = System.getProperty("user.home");
+	            File path = new File(homePath + File.separator + FicheSaver.REVEASY_FOLDER
+		                + File.separator + FicheSaver.FICHES_FOLDER + File.separator + f.getTitre() + ".txt");
+
+	            // Supprimer le fichier s'il existe
+	            if (path.exists()) {
+	                boolean deleted = path.delete();
+	                if (deleted) {
+	                    JOptionPane.showMessageDialog(null, "La fiche a été supprimée avec succès.", "Succès",
+	                            JOptionPane.INFORMATION_MESSAGE);
+	                } else {
+	                    JOptionPane.showMessageDialog(null, "Impossible de supprimer la fiche.", "Erreur",
+	                            JOptionPane.ERROR_MESSAGE);
+	                }
+	            } else {
+	                JOptionPane.showMessageDialog(null, "La fiche n'existe pas.", "Erreur",
+	                        JOptionPane.ERROR_MESSAGE);
+	            }
+	        }
+	    }
+	}
+
+	
 }
