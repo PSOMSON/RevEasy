@@ -1,10 +1,15 @@
 package gui.vues;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.List;
 
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
@@ -60,17 +65,44 @@ public class Reviser extends Vue implements AfficheurFiche {
     @Override
     public void openFiche(Fiche f) {
 
-        // Créer la zone du choix de test
-        JPanel panelTest = new JPanel(new BorderLayout());
-        JButton testFlashCards = new JButton("Flash Cards");
-        JButton testTexteAtrou = new JButton("Texte A trou");
-        JPanel choixTest = new JPanel(new FlowLayout());
-        panelTest.add(choixTest, BorderLayout.CENTER);
-        choixTest.add(testFlashCards);
-        choixTest.add(testTexteAtrou);
-        testFlashCards.addActionListener(e->{startTestFlashCards(f);});
-        TexteAvecTrous TexteAvecTrous = new TexteAvecTrous(f.getTexteATrouver());
+    	// Créer la zone du choix de test
+    	JPanel panelTest = new JPanel(new GridBagLayout());
+    	panelTest.setBackground(Color.WHITE);
+    	
+    	// Créer les boutons de test
+    	JButton testFlashCards = new JButton();
+    	testFlashCards.setBackground(Color.WHITE);
+    	ImageIcon icon = new ImageIcon("assets/flashcards.png"); // redimensionnement de l'image
+		Image img = icon.getImage();
+		Image newimg = img.getScaledInstance(150, 100, java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newimg);
+    	testFlashCards.setIcon(icon);
+    	testFlashCards.setText("Flash Cards");
+    	testFlashCards.setHorizontalTextPosition(JButton.CENTER);
+    	testFlashCards.setVerticalTextPosition(JButton.BOTTOM);
+
+    	JButton testTexteAtrou = new JButton();
+    	testTexteAtrou.setBackground(Color.WHITE);
+    	icon = new ImageIcon("assets/texteatrou.png"); // redimensionnement de l'image
+		img = icon.getImage();
+		newimg = img.getScaledInstance(150, 100, java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newimg);
+    	testTexteAtrou.setIcon(icon);
+    	testTexteAtrou.setText("Texte A trou");
+    	testTexteAtrou.setHorizontalTextPosition(JButton.CENTER);
+    	testTexteAtrou.setVerticalTextPosition(JButton.BOTTOM);
+
+    	// Créer le panel pour les boutons de test
+    	JPanel choixTest = new JPanel(new FlowLayout());
+    	panelTest.add(choixTest, new GridBagConstraints());
+
+    	// Ajouter les boutons de test au panel
+    	choixTest.add(testFlashCards);
+    	choixTest.add(testTexteAtrou);
         
+        testFlashCards.addActionListener(e->{startTestFlashCards(f);});
+        
+        TexteAvecTrous TexteAvecTrous = new TexteAvecTrous(f.getTexteATrouver());
         ReviserText reviserText= new ReviserText(f.getTexteATrouver(), TexteAvecTrous.genererTexteAvecTrous()) ;
         testTexteAtrou.addActionListener(e->{startTestAtROU( f, reviserText);});
         
