@@ -19,6 +19,7 @@ import javax.swing.JPanel;
 import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextPane;
+import javax.swing.JToggleButton;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
@@ -56,7 +57,9 @@ public class ActionsEdition extends JPanel{
     /** Encore un sélecteur de couleur, mais pour le surlignage */
     JColorChooser backgroundChooser;
 
-    /** Créer un nouveau menu d'édition */
+    /** Créer un nouveau menu d'édition. Il est séparé en deux : une moitié supérieure avec les sur-catégories (insertion, edition etc)
+     * et une moitié inférieure avec les boutons correspondants à chaque catégorie (pour Editer : gras, italique, etc).
+    */
     public ActionsEdition(JTextPane textbox) {
 
         // On lie la zone d'édition à ce menu pour pouvoir la modifier
@@ -119,8 +122,12 @@ public class ActionsEdition extends JPanel{
         JPanel menu = new JPanel(new FlowLayout(FlowLayout.LEFT));
         menu.setLayout(new BoxLayout(menu, BoxLayout.X_AXIS));
 
+        // Définition des trois catégories
+        JToggleButton fichiers = new JToggleButton("Fichiers");
+        JToggleButton balises = new JToggleButton("RevEasy");
+        JToggleButton edition = new JToggleButton("Edition");
+
         // Le bouton fichier ouvre le sous-menu fichier
-        JButton fichiers = new JButton("Fichiers");
         fichiers.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Changement de menu
@@ -128,11 +135,15 @@ public class ActionsEdition extends JPanel{
                 peuplerFichiers();
                 sousmenu.revalidate();
                 sousmenu.repaint();
+                fichiers.setSelected(true);
+                edition.setSelected(false);
+                balises.setSelected(false);
             }
         });
+        fichiers.setBorderPainted(false);
+        fichiers.setFocusPainted(false);
 
         // Le bouton édition ouvre le sous-menu édition
-        JButton edition = new JButton("Edition");
         edition.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Changement de menu
@@ -140,11 +151,15 @@ public class ActionsEdition extends JPanel{
                 peuplerEdition();
                 sousmenu.revalidate();
                 sousmenu.repaint();
+                edition.setSelected(true);
+                fichiers.setSelected(false);
+                balises.setSelected(false);
             }
         });
+        edition.setBorderPainted(false);
+        edition.setFocusPainted(false);
 
         // Le bouton balises ouvre le sous-menu balises
-        JButton balises = new JButton("RevEasy");
         balises.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 // Changement de menu
@@ -152,13 +167,20 @@ public class ActionsEdition extends JPanel{
                 peuplerBalises();
                 sousmenu.revalidate();
                 sousmenu.repaint();
+                balises.setSelected(true);
+                fichiers.setSelected(false);
+                edition.setSelected(false);
             }
         });
+        balises.setBorderPainted(false);
+        balises.setFocusPainted(false);
 
         // Ajout des boutons au menu
-        menu.add(fichiers);
+        //menu.add(fichiers);
         menu.add(edition);
         menu.add(balises);
+        // On commence dans le menu Edition
+        edition.setSelected(true);
         return menu;
     }
 
@@ -168,8 +190,16 @@ public class ActionsEdition extends JPanel{
     private void peuplerFichiers(){}
 
     /** Peuple le sous-menu édition avec toutes les commandes concernées.
-     * On parle ici des commandes de mise en forme du texte. (Gras, italique, etc...)
-     * Attention : la méthode est TRÈS LONGUE !
+     * On parle ici des commandes de mise en forme du texte.
+     * voici la liste des commandes qui y appartiennent :
+     * - Gras
+     * - Italique
+     * - Souligné
+     * - Couleur
+     * - Surlignage
+     * - Taille
+     * - Police
+     * - Alignement (gauche / centre / droite / justifié)
      */
     private void peuplerEdition(){
         // Personnalisation de la disposition des boutons
@@ -186,18 +216,21 @@ public class ActionsEdition extends JPanel{
         Action boldAction = new StyledEditorKit.BoldAction();
         boldAction.putValue(Action.NAME, "Gras");
         JButton bold = new JButton(boldAction);
+        bold.setFocusPainted(false);
         gauche.add(bold);
 
         // Italique
         Action italicAction = new StyledEditorKit.ItalicAction();
         italicAction.putValue(Action.NAME, "Italique");
         JButton italic = new JButton(italicAction);
+        italic.setFocusPainted(false);
         gauche.add(italic);
 
         // Souligné
         Action underlineAction = new StyledEditorKit.UnderlineAction();
         underlineAction.putValue(Action.NAME, "Souligné");
         JButton underline = new JButton(underlineAction);
+        underline.setFocusPainted(false);
         gauche.add(underline);
 
         // Déclaration du controlleur de police 
@@ -215,6 +248,7 @@ public class ActionsEdition extends JPanel{
                 frame.setVisible(true);
             }
         });
+        color.setFocusPainted(false);
         gauche.add(color);
 
         // Et un autre pour changer la couleur de fond
@@ -228,6 +262,7 @@ public class ActionsEdition extends JPanel{
                 frame.setVisible(true);
             }
         });
+        background.setFocusPainted(false);
         gauche.add(background);
 
         // Au centre
@@ -288,9 +323,13 @@ public class ActionsEdition extends JPanel{
         
         // On y met les alignements de texte (gauche, centre, droite, justifié)
         JButton alignGauche = new JButton(new StyledEditorKit.AlignmentAction("Gauche", StyleConstants.ALIGN_LEFT));
+        alignGauche.setFocusPainted(false);
         JButton alignCentre = new JButton(new StyledEditorKit.AlignmentAction("Centre", StyleConstants.ALIGN_CENTER));
+        alignCentre.setFocusPainted(false);
         JButton alignDroite = new JButton(new StyledEditorKit.AlignmentAction("Droite", StyleConstants.ALIGN_RIGHT));
+        alignDroite.setFocusPainted(false);
         JButton alignJustifie = new JButton(new StyledEditorKit.AlignmentAction("Justifié", StyleConstants.ALIGN_JUSTIFIED));
+        alignJustifie.setFocusPainted(false);
         droite.add(alignGauche);
         droite.add(alignCentre);
         droite.add(alignDroite);
@@ -306,7 +345,10 @@ public class ActionsEdition extends JPanel{
 
 
     /** Peuple le sous-menu balises avec toutes les commandes concernées. 
-     * On parle ici des balises théorèmes, définitions, questions, etc...
+     * Voici les commandes ajoutées :
+     * - @Definition
+     * - @Theoreme
+     * - @Question
     */
     private void peuplerBalises(){
 
