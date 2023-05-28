@@ -359,21 +359,17 @@ public class ActionsEdition extends JPanel{
 
         // Redéfinission de la disposition
         this.sousmenu.setLayout(new FlowLayout(FlowLayout.CENTER));
-        
+
         // @Définition
-        definition.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textbox.requestFocusInWindow();
-                textbox.replaceSelection("\n\n@Definition mot\nla definition du mot sur cette ligne");
-            }
+        definition.addActionListener(ev -> {
+            PopUpAjout popUp = new PopUpAjout(this.textbox, "Definition");
+            popUp.setVisible(true);
         });
 
         // @Theoreme
-        theoreme.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textbox.requestFocusInWindow();
-                textbox.replaceSelection("\n\n@Theoreme nom du théorème\nénoncé du théorème sur cette ligne");
-            }
+        theoreme.addActionListener(ev -> {
+            PopUpAjout popUp = new PopUpAjout(this.textbox, "Theoreme");
+            popUp.setVisible(true);
         });
 
         // @Question
