@@ -1,6 +1,7 @@
 package gui;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.GraphicsEnvironment;
 import java.awt.GridLayout;
@@ -10,12 +11,16 @@ import java.awt.event.ActionListener;
 import javax.swing.Action;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
+import javax.swing.JColorChooser;
 import javax.swing.JComboBox;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JSeparator;
 import javax.swing.JSpinner;
 import javax.swing.JTextPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingConstants;
 import javax.swing.event.ChangeListener;
 import javax.swing.text.Document;
 import javax.swing.text.MutableAttributeSet;
@@ -45,6 +50,12 @@ public class ActionsEdition extends JPanel{
     /** Le sous-menu affiché */
     JPanel sousmenu;
 
+    /** Un sélecteur de couleur qui se doit de garder en mémoir les couleurs utilisées */
+    JColorChooser colorChooser;
+
+    /** Encore un sélecteur de couleur, mais pour le surlignage */
+    JColorChooser backgroundChooser;
+
     /** Créer un nouveau menu d'édition */
     public ActionsEdition(JTextPane textbox) {
 
@@ -64,8 +75,39 @@ public class ActionsEdition extends JPanel{
         this.bandeau.add(sousmenu, BorderLayout.SOUTH);
         peuplerEdition();
 
+        // Séparation des deux menus pour une meilleure lisibilité
+        this.bandeau.add(new JSeparator(SwingConstants.HORIZONTAL), BorderLayout.CENTER);
+
         // Enfin, ajout du bandeau
         this.add(bandeau);
+
+        // Création d'un sélecteur de couleur pour la police
+        colorChooser = new JColorChooser(textbox.getForeground());
+        colorChooser.getSelectionModel().addChangeListener(e -> {
+            textbox.requestFocusInWindow();
+            // Récupérer la couleur sélectionnée
+            Color color = colorChooser.getColor();
+            // Ne pas modifier TOUS les attributs de style du texte
+            MutableAttributeSet attr = new SimpleAttributeSet();
+            // Modifier la couleur du texte
+            StyleConstants.setForeground(attr, color);
+            // Modifier le texte sélectionné
+            textbox.setCharacterAttributes(attr, false);
+        });
+
+        // Création d'un sélecteur de couleur pour le surlignage
+        backgroundChooser = new JColorChooser(textbox.getBackground());
+        backgroundChooser.getSelectionModel().addChangeListener(e -> {
+            textbox.requestFocusInWindow();
+            // Récupérer la couleur sélectionnée
+            Color color = backgroundChooser.getColor();
+            // Ne pas modifier TOUS les attributs de style du texte
+            MutableAttributeSet attr = new SimpleAttributeSet();
+            // Modifier la couleur du texte
+            StyleConstants.setBackground(attr, color);
+            // Modifier le texte sélectionné
+            textbox.setCharacterAttributes(attr, false);
+        });
         
     }
 
@@ -127,6 +169,7 @@ public class ActionsEdition extends JPanel{
 
     /** Peuple le sous-menu édition avec toutes les commandes concernées.
      * On parle ici des commandes de mise en forme du texte. (Gras, italique, etc...)
+     * Attention : la méthode est TRÈS LONGUE !
      */
     private void peuplerEdition(){
         // Personnalisation de la disposition des boutons
@@ -136,6 +179,8 @@ public class ActionsEdition extends JPanel{
         JPanel gauche = new JPanel();
         JPanel centre = new JPanel();
         JPanel droite = new JPanel();
+
+        // A gauche
 
         // Gras
         Action boldAction = new StyledEditorKit.BoldAction();
@@ -158,6 +203,34 @@ public class ActionsEdition extends JPanel{
         // Déclaration du controlleur de police 
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         JComboBox<String> font = new JComboBox<>(fonts);
+
+        // Ajout d'un bouton pour changer la couleur de la police
+        JButton color = new JButton("Couleur");
+        color.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Choix de la couleur");
+                frame.add(colorChooser);
+                frame.pack();
+                frame.setAlwaysOnTop (true);
+                frame.setVisible(true);
+            }
+        });
+        gauche.add(color);
+
+        // Et un autre pour changer la couleur de fond
+        JButton background = new JButton("Surlignage");
+        background.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                JFrame frame = new JFrame("Choix de la couleur");
+                frame.add(backgroundChooser);
+                frame.pack();
+                frame.setAlwaysOnTop (true);
+                frame.setVisible(true);
+            }
+        });
+        gauche.add(background);
+
+        // Au centre
 
     // Ajout d'un spinner de taille de police pour le texte sélectionné
         SpinnerNumberModel size = new SpinnerNumberModel(12, 1, 100, 1);
@@ -211,7 +284,9 @@ public class ActionsEdition extends JPanel{
         centre.add(font);
 
 
-    // A droite, les alignements
+        // A droite
+        
+        // On y met les alignements de texte (gauche, centre, droite, justifié)
         JButton alignGauche = new JButton(new StyledEditorKit.AlignmentAction("Gauche", StyleConstants.ALIGN_LEFT));
         JButton alignCentre = new JButton(new StyledEditorKit.AlignmentAction("Centre", StyleConstants.ALIGN_CENTER));
         JButton alignDroite = new JButton(new StyledEditorKit.AlignmentAction("Droite", StyleConstants.ALIGN_RIGHT));
