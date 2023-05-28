@@ -43,10 +43,6 @@ public class Editeur extends JPanel implements AfficheurFiche {
         JPanel controleurs = new JPanel();
         controleurs.setLayout(new BoxLayout(controleurs, BoxLayout.X_AXIS));
 
-        // Créer la zone d'actions d'édition
-        JPanel actions = new JPanel();
-        actions.setLayout(new BoxLayout(actions, BoxLayout.X_AXIS));
-
         // Ajout de la sauvegarde et du titre dans les controlleurs
         this.title = new JTextField("Titre");
         JButton save = new JButton("Sauvegarder");
@@ -67,56 +63,8 @@ public class Editeur extends JPanel implements AfficheurFiche {
         controleurs.add(open);
         this.add(controleurs, BorderLayout.SOUTH);
 
-        // Ajout des actions d'édition
-        JPanel leftActions = new JPanel(new FlowLayout(FlowLayout.LEFT));
-        Action boldAction = new StyledEditorKit.BoldAction();
-        boldAction.putValue(Action.NAME, "Gras");
-        JButton bold = new JButton(boldAction);
-        leftActions.add(bold);
-
-        Action italicAction = new StyledEditorKit.ItalicAction();
-        italicAction.putValue(Action.NAME, "Italique");
-        JButton italic = new JButton(italicAction);
-        leftActions.add(italic);
-
-        Action underlineAction = new StyledEditorKit.UnderlineAction();
-        underlineAction.putValue(Action.NAME, "Souligné");
-        JButton underline = new JButton(underlineAction);
-        leftActions.add(underline);
-        
-        // Ajout des actions
-        JPanel rightActions = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        JButton definition = new JButton("@Definition");
-        JButton theoreme = new JButton("@Theoreme");
-        JButton qcm = new JButton("@QCM");
-        
-        definition.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textbox.requestFocusInWindow();
-                textbox.replaceSelection("\n\n@Definition mot\nla definition du mot sur cette ligne");
-            }
-        });
-
-        theoreme.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textbox.requestFocusInWindow();
-                textbox.replaceSelection("\n\n@Theoreme nom du théorème\nénoncé du théorème sur cette ligne");
-            }
-        });
-
-        qcm.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                textbox.requestFocusInWindow();
-                textbox.replaceSelection("\n\n@Question question ?\n@ReponseV Réponse vraie\n@ReponseF Réponse fausse\n@ReponseF Réponse fausse");
-            }
-        });
-        rightActions.add(definition);
-        rightActions.add(theoreme);
-        rightActions.add(qcm);
-        actions.add(leftActions);
-        actions.add(rightActions);
-        
-        
+        // Ajout du menu supérieur d'édition
+        JPanel actions = new ActionsEdition(this.textbox); 
         this.add(actions, BorderLayout.NORTH);
     }
 
