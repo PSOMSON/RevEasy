@@ -159,43 +159,67 @@ public class ActionsEdition extends JPanel{
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         JComboBox<String> font = new JComboBox<>(fonts);
 
-        // Ajout d'un spinner de taille de police pour le texte sélectionné
+    // Ajout d'un spinner de taille de police pour le texte sélectionné
         SpinnerNumberModel size = new SpinnerNumberModel(12, 1, 100, 1);
         size.addChangeListener(new ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent e) {
                 textbox.requestFocusInWindow();
+                // Petite ruse pour pouvoir modifier les attributs de la police de la sélection
                 Document doc = textbox.getDocument();
+                // On récupère la sélection
                 int start = textbox.getSelectionStart();
                 int end = textbox.getSelectionEnd();
                 if (end > start) {
+                    // On garde les mêmes attributs qu'avant
                     MutableAttributeSet attr = new SimpleAttributeSet();
+                    // On change juste la taille
                     StyleConstants.setFontSize(attr, size.getNumber().intValue());
                     ((StyledDocument) doc).setCharacterAttributes(start, end - start, attr, false);
                 }
             }
         });
+        // Ajout d'un label pour le spinner
         JSpinner taille = new JSpinner(size);
         JPanel taillePanel = new JPanel();
         JLabel nom = new JLabel("Taille : ");
+        // Ajout du label et du spinner dans un panel
         taillePanel.add(nom);
         taillePanel.add(taille);
+        // Ajout de la somme des deux dans le centre
         centre.add(taillePanel);
+
         
-        // Ajout d'un spinner pour la police d'écriture
+    // Ajout d'un spinner pour la police d'écriture
         font.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textbox.requestFocusInWindow();
+                // Petite ruse pour pouvoir modifier les attributs de la police de la sélection
                 Document doc = textbox.getDocument();
+                // On récupère la sélection
                 int start = textbox.getSelectionStart();
                 int end = textbox.getSelectionEnd();
                 if (end > start) {
+                    // On garde les mêmes attributs qu'avant
                     MutableAttributeSet attr = new SimpleAttributeSet();
+                    // On change juste la police
                     StyleConstants.setFontFamily(attr, font.getSelectedItem().toString());
                     ((StyledDocument) doc).setCharacterAttributes(start, end - start, attr, false);
                 }
             }
         });
+        // Ajout au centre
         centre.add(font);
+
+
+    // A droite, les alignements
+        JButton alignGauche = new JButton(new StyledEditorKit.AlignmentAction("Gauche", StyleConstants.ALIGN_LEFT));
+        JButton alignCentre = new JButton(new StyledEditorKit.AlignmentAction("Centre", StyleConstants.ALIGN_CENTER));
+        JButton alignDroite = new JButton(new StyledEditorKit.AlignmentAction("Droite", StyleConstants.ALIGN_RIGHT));
+        JButton alignJustifie = new JButton(new StyledEditorKit.AlignmentAction("Justifié", StyleConstants.ALIGN_JUSTIFIED));
+        droite.add(alignGauche);
+        droite.add(alignCentre);
+        droite.add(alignDroite);
+        droite.add(alignJustifie);
 
 
 
@@ -203,8 +227,8 @@ public class ActionsEdition extends JPanel{
         this.sousmenu.add(gauche);
         this.sousmenu.add(centre);
         this.sousmenu.add(droite);
-
     }
+
 
     /** Peuple le sous-menu balises avec toutes les commandes concernées. 
      * On parle ici des balises théorèmes, définitions, questions, etc...
@@ -215,6 +239,9 @@ public class ActionsEdition extends JPanel{
         JButton definition = new JButton("@Definition");
         JButton theoreme = new JButton("@Theoreme");
         JButton qcm = new JButton("@QCM");
+
+        // Redéfinission de la disposition
+        this.sousmenu.setLayout(new FlowLayout(FlowLayout.CENTER));
         
         // @Définition
         definition.addActionListener(new ActionListener() {
