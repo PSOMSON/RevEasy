@@ -3,8 +3,6 @@ package gui.vues;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -64,9 +62,8 @@ public class Reviser extends Vue implements AfficheurFiche {
 
     @Override
     public void openFiche(Fiche f) {
-
     	// Créer la zone du choix de test
-    	JPanel panelTest = new JPanel(new GridBagLayout());
+    	JPanel panelTest = new JPanel(new BorderLayout());
     	panelTest.setBackground(Color.WHITE);
     	
     	// Créer les boutons de test
@@ -94,7 +91,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 
     	// Créer le panel pour les boutons de test
     	JPanel choixTest = new JPanel(new FlowLayout());
-    	panelTest.add(choixTest, new GridBagConstraints());
+    	panelTest.add(choixTest, BorderLayout.CENTER);
 
     	// Ajouter les boutons de test au panel
     	choixTest.add(testFlashCards);
@@ -106,6 +103,11 @@ public class Reviser extends Vue implements AfficheurFiche {
         ReviserText reviserText= new ReviserText(f.getTexteATrouver(), TexteAvecTrous.genererTexteAvecTrous()) ;
         testTexteAtrou.addActionListener(e->{startTestAtROU( f, reviserText);});
         
+        // Ajout du bouton "retour au choix de fichier a reviser"
+        exitButton = new JButton("Retour");
+        panelTest.add(exitButton, BorderLayout.SOUTH);
+        exitButton.addActionListener(e->{buttonClicked(e);});
+       
         
         // Ajouter les deux zones à la vue en les séparant
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
@@ -135,7 +137,11 @@ public class Reviser extends Vue implements AfficheurFiche {
         revealButton = new JButton("Révéler la réponse");
         nextButton = new JButton("Théorème suivant");
         exitButton = new JButton("Retour");
-
+        
+        // Changer bouton en Recommencer si fin de theroemes
+        if (currentTheoremIndex == theoremList.size()-1)
+    		nextButton.setText("Recommencer");
+        
         // Set layout
         testZone.setLayout(new BorderLayout());
 
@@ -189,11 +195,15 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private void buttonClicked(ActionEvent e) {
 		if (e.getSource() == revealButton) {
             // Show the answer
-            //String theorem = theoremList.get(currentTheoremIndex).getTitre();
             String answer =  theoremList.get(currentTheoremIndex).getCorps();
             theoremLabel.setText(answer);
         } else if (e.getSource() == nextButton) {
             // Go to the next theorem
+        	// Changer bouton en Recommencer si fin de theroemes
+        	if (currentTheoremIndex == theoremList.size()-1)
+        		nextButton.setText("Recommencer");
+        	else
+        		nextButton.setText("Théorème suivant");
             currentTheoremIndex = (currentTheoremIndex + 1) % theoremList.size();
             theoremLabel.setText(theoremList.get(currentTheoremIndex).getTitre());
         } else if (e.getSource() == exitButton) {

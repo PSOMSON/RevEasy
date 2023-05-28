@@ -62,6 +62,11 @@ public class Editeur extends JPanel implements AfficheurFiche {
         JPanel actions = new ActionsEdition(this.textbox); 
         this.add(actions, BorderLayout.NORTH);
     }
+    
+    public Editeur(Fiche f) {
+    	this();
+    	openFiche(f);
+    }
 
     @Override
     public void openFiche(Fiche f) {
