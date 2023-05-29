@@ -137,7 +137,6 @@ public class Consultation extends Vue {
 	public void ouvrir(Fiche f) {
 		fiche = f;
 		zoneTexte.setEditorKit(new HTMLEditorKit());
-
 		String contenu = f.getContenu();
 		contenu = Traducteur.balises(contenu);
 		zoneTexte.setText(contenu);

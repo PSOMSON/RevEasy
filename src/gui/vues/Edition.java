@@ -44,11 +44,6 @@ public class Edition extends Vue {
      * @param fiche fiche à éditer.
      */
     public void editer(Fiche fiche) {
-        this.zoneEdition = new Editeur(fiche);
-        JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-                                                                        zoneEdition);
-        layout.setSize(this.getSize());
-
-        this.add(layout, BorderLayout.CENTER);
+        this.zoneEdition.openFiche(fiche);
     }
 }

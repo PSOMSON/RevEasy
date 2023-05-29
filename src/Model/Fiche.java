@@ -155,9 +155,8 @@ public class Fiche {
             }
         }
         return enonces;
-
-
     }
+    
     public  List<String> getTexteATrouver() {
         String tag = "@text";
         List<String> result = new ArrayList<String>();
