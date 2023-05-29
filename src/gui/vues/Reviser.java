@@ -3,6 +3,7 @@ package gui.vues;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -35,6 +36,7 @@ public class Reviser extends Vue implements AfficheurFiche {
     private JButton exitButton;
     private List<Enonce> theoremList;
     private int currentTheoremIndex;
+    private JPanel zoneOuverture;
 	
     /**
      * Constructeur.
@@ -44,11 +46,13 @@ public class Reviser extends Vue implements AfficheurFiche {
         super(new BorderLayout());
         
         // Créer la zone d'ouverture
-        openButton = new JButton("Ouvrir une fiche a reviser");
+        zoneOuverture = new JPanel(new GridBagLayout());
+        openButton = new JButton("Ouvrir une fiche à reviser");
         openButton.addActionListener(e -> {
             PopUpOpenFiche popUp = new PopUpOpenFiche(this);
             popUp.setVisible(true);
         });
+        zoneOuverture.add(openButton);
 
 
         // Créer la zone de recherche
@@ -56,7 +60,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 
         // Ajouter les deux zones à la vue en les séparant
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-        		openButton);
+        		zoneOuverture);
         layout.setSize(this.getSize());
 
         this.add(layout, BorderLayout.CENTER);
@@ -232,7 +236,7 @@ public class Reviser extends Vue implements AfficheurFiche {
         } else if (e.getSource() == exitButton) {
             // Ajouter les deux zones à la vue en les séparant
             JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-            		openButton);
+            		zoneOuverture);
             layout.setSize(this.getSize());
 
             this.removeAll();
