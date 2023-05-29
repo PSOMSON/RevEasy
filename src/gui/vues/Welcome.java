@@ -36,12 +36,14 @@ public class Welcome extends Vue {
         // Créer les bouton
         JButton nouvelleFiche = new JButton("Nouvelle fiche");
         JButton vueConsultation = new JButton("Parcourir les fiches");
+        JButton revision = new JButton ("Réviser une fiche");
         JButton quitter = new JButton("Quitter");
 
         // Ajouter les boutons à un panel
         JPanel boutons = new JPanel(new FlowLayout());
         boutons.add(nouvelleFiche);
         boutons.add(vueConsultation);
+        boutons.add(revision);
         boutons.add(quitter);
 
         // Ajouter le panel de boutons à la vue
@@ -51,10 +53,12 @@ public class Welcome extends Vue {
         nouvelleFiche.addActionListener(ihm);
         vueConsultation.addActionListener(ihm);
         quitter.addActionListener(ihm);
+        revision.addActionListener(ihm);
 
         // Ajouter les commandes
         nouvelleFiche.setActionCommand("vueEdition");
         vueConsultation.setActionCommand("vueConsultation");
+        revision.setActionCommand("vueRevision");
         quitter.setActionCommand("quitter");
     }
 

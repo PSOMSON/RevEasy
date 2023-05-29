@@ -24,7 +24,6 @@ import Model.Fiche;
 import Model.FicheSaver;
 import Model.Traducteur;
 import Model.PDFConverter;
-
 import gui.IHM;
 
 public class Consultation extends Vue {
@@ -34,6 +33,10 @@ public class Consultation extends Vue {
 	/** Zone d'affichage du texte de la fiche. */
 	private JTextPane zoneTexte;
 
+	private JSplitPane generalLayout;
+	private MenuLateral menuLateral;
+	private IHM ihm;
+
 	/**
 	 * Initialiser la vue.
 	 * 
@@ -41,8 +44,9 @@ public class Consultation extends Vue {
 	 */
 	public Consultation(IHM ihm) {
 		super(new BorderLayout());
+		this.ihm = ihm;
 
-		MenuLateral menuLateral = new MenuLateral(ihm);
+		menuLateral = new MenuLateral(ihm);
 
 		Liste fiches = new Liste(this);
 
@@ -54,11 +58,23 @@ public class Consultation extends Vue {
 		minilayout.add(zoneTexteScrollPane, BorderLayout.CENTER);
 		JPanel options = new JPanel();
 		options.setLayout(new FlowLayout(FlowLayout.TRAILING));
-
-		// Création de l'icône pour le bouton ExportPDF
-		ImageIcon icon = new ImageIcon("assets/exportPDF.png");
+		
+		// Création de l'icône pour le bouton modifier
+		ImageIcon icon = new ImageIcon("assets/edit.png");
 		Image img = icon.getImage();
 		Image newimg = img.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
+		icon = new ImageIcon(newimg);
+				
+		JButton editButton = new JButton("Modifier", icon);
+		editButton.setBackground(Color.WHITE);
+		editButton.setPreferredSize(new Dimension(editButton.getPreferredSize().width,30));
+		editButton.addActionListener(e->{modifierFiche(fiche);});
+		options.add(editButton);
+
+		// Création de l'icône pour le bouton ExportPDF
+		icon = new ImageIcon("assets/exportPDF.png");
+		img = icon.getImage();
+		newimg = img.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
 		
 		JButton exportButton = new JButton("ExportPDF", icon);
@@ -71,7 +87,7 @@ public class Consultation extends Vue {
 		});
 		options.add(exportButton);
 		
-		// Création de l'icône pour le bouton ExportPDF
+		// Création de l'icône pour le bouton supprimer
 		icon = new ImageIcon("assets/delete.png");
 		img = icon.getImage();
 		newimg = img.getScaledInstance(30, 30, java.awt.Image.SCALE_SMOOTH);
@@ -85,18 +101,32 @@ public class Consultation extends Vue {
 				supprimer(fiche);
 			}
 		});
-		
-		
 		options.add(deleteButton);
+
 		minilayout.add(options, BorderLayout.NORTH);
 
 		JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, fiches, minilayout);
 		layout.setSize(this.getSize());
 
-		JSplitPane generalLayout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral, layout);
+		generalLayout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral, layout);
 		generalLayout.setSize(this.getSize());
 
 		this.add(generalLayout, BorderLayout.CENTER);
+	}
+	
+	
+	/**
+	 * Modifier une fiche.
+	 * @param fiche Fiche à modifier
+	 */
+	private void modifierFiche(Fiche fiche) {
+		if (fiche == null) 
+			JOptionPane.showMessageDialog(null, "Veuillez ouvrir une fiche d'abord.", "Alert",
+					JOptionPane.INFORMATION_MESSAGE);
+		else {
+			ihm.editer(fiche);
+		}
+		
 	}
 
 	/**
@@ -107,7 +137,6 @@ public class Consultation extends Vue {
 	public void ouvrir(Fiche f) {
 		fiche = f;
 		zoneTexte.setEditorKit(new HTMLEditorKit());
-
 		String contenu = f.getContenu();
 		contenu = Traducteur.balises(contenu);
 		zoneTexte.setText(contenu);
@@ -119,10 +148,10 @@ public class Consultation extends Vue {
 	 * @param f Fiche à exporter
 	 */
 	public void exportPDF(Fiche f) {
-		if (f == null) {
+		if (f == null)
 			JOptionPane.showMessageDialog(null, "Veuillez ouvrir une fiche d'abord.", "Alert",
 					JOptionPane.INFORMATION_MESSAGE);
-		} else {
+		else {
 			String contenu = f.getContenu();
 			contenu = Traducteur.balises(contenu);
 

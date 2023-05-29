@@ -13,8 +13,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JSplitPane;
+import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.JPanel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextPane;
 
 import Model.Enonce;
 import Model.Fiche;
@@ -28,12 +30,13 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private MenuLateral menuLateral;
 	private JButton openButton;
 	
-	private JLabel theoremLabel;
+	private JTextPane theoremLabel;
     private JButton revealButton;
     private JButton nextButton;
     private JButton exitButton;
     private List<Enonce> theoremList;
     private int currentTheoremIndex;
+    private JPanel zoneOuverture;
 	
     /**
      * Constructeur.
@@ -43,11 +46,13 @@ public class Reviser extends Vue implements AfficheurFiche {
         super(new BorderLayout());
         
         // Créer la zone d'ouverture
-        openButton = new JButton("Ouvrir une fiche a reviser");
+        zoneOuverture = new JPanel(new GridBagLayout());
+        openButton = new JButton("Ouvrir une fiche à reviser");
         openButton.addActionListener(e -> {
             PopUpOpenFiche popUp = new PopUpOpenFiche(this);
             popUp.setVisible(true);
         });
+        zoneOuverture.add(openButton);
 
 
         // Créer la zone de recherche
@@ -55,7 +60,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 
         // Ajouter les deux zones à la vue en les séparant
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-        		openButton);
+        		zoneOuverture);
         layout.setSize(this.getSize());
 
         this.add(layout, BorderLayout.CENTER);
@@ -64,9 +69,8 @@ public class Reviser extends Vue implements AfficheurFiche {
 
     @Override
     public void openFiche(Fiche f) {
-
     	// Créer la zone du choix de test
-    	JPanel panelTest = new JPanel(new GridBagLayout());
+    	JPanel panelTest = new JPanel(new BorderLayout());
     	panelTest.setBackground(Color.WHITE);
     	
     	// Créer les boutons de test
@@ -92,13 +96,19 @@ public class Reviser extends Vue implements AfficheurFiche {
     	testTexteAtrou.setHorizontalTextPosition(JButton.CENTER);
     	testTexteAtrou.setVerticalTextPosition(JButton.BOTTOM);
 
+        // Créer le panel de l'onglet révision
+        JPanel revision = new JPanel(new BorderLayout());
+
     	// Créer le panel pour les boutons de test
-    	JPanel choixTest = new JPanel(new FlowLayout());
-    	panelTest.add(choixTest, new GridBagConstraints());
+    	JPanel choixTest = new JPanel(new GridBagLayout());
 
     	// Ajouter les boutons de test au panel
     	choixTest.add(testFlashCards);
     	choixTest.add(testTexteAtrou);
+
+        // Ajouter ses composants à l'onglet révision
+        revision.add(new JLabel("Fiche selectionée : " + f.getTitre()), BorderLayout.NORTH);
+        revision.add(choixTest, BorderLayout.CENTER);
         
         testFlashCards.addActionListener(e->{startTestFlashCards(f);});
         
@@ -106,10 +116,15 @@ public class Reviser extends Vue implements AfficheurFiche {
         ReviserText reviserText= new ReviserText(f.getTexteATrouver(), TexteAvecTrous.genererTexteAvecTrous()) ;
         testTexteAtrou.addActionListener(e->{startTestAtROU( f, reviserText);});
         
+        // Ajout du bouton "retour au choix de fichier a reviser"
+        exitButton = new JButton("Retour");
+        revision.add(exitButton, BorderLayout.SOUTH);
+        exitButton.addActionListener(e->{buttonClicked(e);});
+       
         
         // Ajouter les deux zones à la vue en les séparant
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-        		panelTest);
+        		revision);
         layout.setSize(this.getSize());
         
         // Change les elements de la vue
@@ -122,6 +137,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private void startTestFlashCards(Fiche fiche) {
 		// Créer la zone du test
 		JPanel testZone = new JPanel(new BorderLayout());
+		
 	    theoremList = fiche.getTheoremes();
 	    if (theoremList.size() == 0) {
 	    	JOptionPane.showMessageDialog(null, "La liste des theoremes est vide.", "Alert", JOptionPane.INFORMATION_MESSAGE);
@@ -131,11 +147,17 @@ public class Reviser extends Vue implements AfficheurFiche {
 
 
         // Create UI components
-        theoremLabel = new JLabel(theoremList.get(currentTheoremIndex).getTitre());
+        theoremLabel = new JTextPane();
+        theoremLabel.setEditorKit(new HTMLEditorKit());
+        theoremLabel.setText("<b>Theoreme : </b><br>" + theoremList.get(currentTheoremIndex).getTitre());
         revealButton = new JButton("Révéler la réponse");
         nextButton = new JButton("Théorème suivant");
         exitButton = new JButton("Retour");
-
+        
+        // Changer bouton en Recommencer si fin de theroemes
+        if (currentTheoremIndex == theoremList.size()-1)
+    		nextButton.setText("Recommencer");
+        
         // Set layout
         testZone.setLayout(new BorderLayout());
 
@@ -167,14 +189,25 @@ public class Reviser extends Vue implements AfficheurFiche {
         this.repaint();
 		
 	}
-    private void startTestAtROU(Fiche fiche,ReviserText reviserText) {
+    private void startTestAtROU(Fiche fiche, ReviserText reviserText) {
 	
 
+		if (!reviserText.estPossible()) {
+            JOptionPane.showMessageDialog(null, "Il n'est pas possible de réviser avec " +
+            "un texte à trous pour cette fiche.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+	    	return;
+        }
 		
 		// Ajouter les deux zones à la vue en les séparant
+		JPanel revision = reviserText.afficher();
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-        reviserText.afficher());
+        revision);
         layout.setSize(this.getSize());
+        
+        // Ajout du bouton "retour au choix de fichier a reviser"
+        exitButton = new JButton("Retour");
+        revision.add(exitButton, BorderLayout.NORTH);
+        exitButton.addActionListener(e->{buttonClicked(e);});
         
         // Change les elements de la vue
         this.removeAll();
@@ -189,17 +222,21 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private void buttonClicked(ActionEvent e) {
 		if (e.getSource() == revealButton) {
             // Show the answer
-            //String theorem = theoremList.get(currentTheoremIndex).getTitre();
             String answer =  theoremList.get(currentTheoremIndex).getCorps();
             theoremLabel.setText(answer);
         } else if (e.getSource() == nextButton) {
             // Go to the next theorem
+        	// Changer bouton en Recommencer si fin de theroemes
+        	if (currentTheoremIndex == theoremList.size()-1)
+        		nextButton.setText("Recommencer");
+        	else
+        		nextButton.setText("Théorème suivant");
             currentTheoremIndex = (currentTheoremIndex + 1) % theoremList.size();
-            theoremLabel.setText(theoremList.get(currentTheoremIndex).getTitre());
+            theoremLabel.setText("<b>Theoreme : </b><br>" + theoremList.get(currentTheoremIndex).getTitre());
         } else if (e.getSource() == exitButton) {
             // Ajouter les deux zones à la vue en les séparant
             JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-            		openButton);
+            		zoneOuverture);
             layout.setSize(this.getSize());
 
             this.removeAll();
@@ -208,7 +245,5 @@ public class Reviser extends Vue implements AfficheurFiche {
             this.repaint();
         }
 	}
-        
-    
 
 }

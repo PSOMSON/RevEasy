@@ -5,6 +5,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
+import Model.Fiche;
 import gui.vues.Consultation;
 import gui.vues.Edition;
 import gui.vues.Reviser;
@@ -80,5 +81,14 @@ public class IHM extends JFrame implements ActionListener {
                 throw new IllegalArgumentException("Unexpected value: "
                                                     + arg0.getActionCommand());
         }
+    }
+
+    /**
+     * Editer une fiche.
+     * @param fiche fiche à éditer.
+     */
+    public void editer(Fiche fiche) {
+        edition.editer(fiche);
+        changeVue(edition);
     }
 }

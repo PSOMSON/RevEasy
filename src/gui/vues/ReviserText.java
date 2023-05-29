@@ -5,8 +5,6 @@ import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.util.List;
 import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -23,7 +21,9 @@ public class ReviserText {
         this.texteTroue = texteTroue;
         this.currentIndex = 0;
         this.response = new JTextField();
-        this.textLabel = new JLabel("<html><div style='text-align: center;'>" + texteTroue.get(currentIndex) + "</div></html>");
+        if (texteTroue.size() > 0) {
+            this.textLabel = new JLabel("<html><div style='text-align: center;'>" + texteTroue.get(currentIndex) + "</div></html>");
+        }
     }
 
     public JPanel afficher() {
@@ -76,5 +76,14 @@ public class ReviserText {
         }
         textLabel.setText("<html><div style='text-align: center;'>" + texteTroue.get(currentIndex) + "</div></html>");
     }
+
+    /** 
+     * Est-il possible de réviser la fiche à l'aide d'un texte à trous ?
+     * @return true si c'est possible, false sinon.
+    */
+    public boolean estPossible() {
+        return texteTroue.size() > 0;
+    }
+
 }
 
