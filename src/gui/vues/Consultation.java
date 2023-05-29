@@ -13,7 +13,6 @@ import java.io.IOException;
 
 import javax.swing.JPanel;
 import javax.swing.JButton;
-import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -25,7 +24,6 @@ import Model.Fiche;
 import Model.FicheSaver;
 import Model.Traducteur;
 import Model.PDFConverter;
-import gui.Editeur;
 import gui.IHM;
 
 public class Consultation extends Vue {
@@ -37,6 +35,7 @@ public class Consultation extends Vue {
 
 	private JSplitPane generalLayout;
 	private MenuLateral menuLateral;
+	private IHM ihm;
 
 	/**
 	 * Initialiser la vue.
@@ -45,6 +44,7 @@ public class Consultation extends Vue {
 	 */
 	public Consultation(IHM ihm) {
 		super(new BorderLayout());
+		this.ihm = ihm;
 
 		menuLateral = new MenuLateral(ihm);
 
@@ -124,11 +124,7 @@ public class Consultation extends Vue {
 			JOptionPane.showMessageDialog(null, "Veuillez ouvrir une fiche d'abord.", "Alert",
 					JOptionPane.INFORMATION_MESSAGE);
 		else {
-			this.removeAll();
-			generalLayout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral, new Editeur(fiche));
-			this.add(generalLayout, BorderLayout.CENTER);
-			this.revalidate();
-			this.repaint();
+			ihm.editer(fiche);
 		}
 		
 	}
