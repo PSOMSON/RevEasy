@@ -25,7 +25,7 @@ public class PopUpAjout extends JDialog {
     public PopUpAjout(JTextPane textbox, String type) {
         super();
         this.setLayout(new BorderLayout());
-        String femininPotentiel = (type.equals("definition")) ? "e " : " ";
+        String femininPotentiel = (type.equals("Definition")) ? "e " : " ";
         this.setTitle("Ajouter un" + femininPotentiel + type);
 
         JPanel formulaire = new JPanel();
