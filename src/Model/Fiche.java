@@ -145,7 +145,7 @@ public class Fiche {
             if (texte.get(i).contains(balise)) {
                 try {
                     titredef = texte.get(i).substring(balise.length() + 1).strip();
-                    contenudef = texte.get(i + 1).strip();
+                    contenudef = texte.get(i + 3).strip(); // +3 Permet de passer directement a la ligne qui contient le corps de l'enonce
                     enonces.add(new Enonce(type, titredef, contenudef));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Mauvaise usage d'une balise " + balise);

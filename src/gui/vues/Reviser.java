@@ -3,7 +3,6 @@ package gui.vues;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -30,13 +29,14 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private MenuLateral menuLateral;
 	private JButton openButton;
 	
-	private JTextPane theoremLabel;
+	private JTextPane enonceLabel;
     private JButton revealButton;
     private JButton nextButton;
     private JButton exitButton;
-    private List<Enonce> theoremList;
-    private int currentTheoremIndex;
+    private List<Enonce> enonceList;
+    private int currentEnonceIndex;
     private JPanel zoneOuverture;
+	private int theoremeOUdefinition;
 	
     /**
      * Constructeur.
@@ -135,27 +135,38 @@ public class Reviser extends Vue implements AfficheurFiche {
     }
 
 	private void startTestFlashCards(Fiche fiche) {
+		String[] options = {"Theoremes", "Definitions",};
+        theoremeOUdefinition = JOptionPane.showOptionDialog(
+            this,
+            "Que souhaitez-vous réviser ?",
+            "Que souhaitez-vous réviser ?",
+            JOptionPane.DEFAULT_OPTION,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            options,
+            options[0]
+        );
+        
 		// Créer la zone du test
 		JPanel testZone = new JPanel(new BorderLayout());
 		
-	    theoremList = fiche.getTheoremes();
-	    if (theoremList.size() == 0) {
-	    	JOptionPane.showMessageDialog(null, "La liste des theoremes est vide.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+	    enonceList = theoremeOUdefinition == 0? fiche.getTheoremes() : fiche.getDefinitions();
+	    if (enonceList.size() == 0) {
+	    	JOptionPane.showMessageDialog(null, "La liste des " + (theoremeOUdefinition == 0? "Theoremes":"Definitions") + " est vide.", "Alert", JOptionPane.INFORMATION_MESSAGE);
 	    	return;
 	    }
-        currentTheoremIndex = 0;
-
+        currentEnonceIndex = 0;
 
         // Create UI components
-        theoremLabel = new JTextPane();
-        theoremLabel.setEditorKit(new HTMLEditorKit());
-        theoremLabel.setText("<b>Theoreme : </b><br>" + theoremList.get(currentTheoremIndex).getTitre());
+        enonceLabel = new JTextPane();
+        enonceLabel.setEditorKit(new HTMLEditorKit());
+        enonceLabel.setText("<b>"+(theoremeOUdefinition == 0? "Theoreme":"Definition")+" : </b><br>" + enonceList.get(currentEnonceIndex).getTitre());
         revealButton = new JButton("Révéler la réponse");
-        nextButton = new JButton("Théorème suivant");
+        nextButton = new JButton((theoremeOUdefinition == 0? "Theoreme":"Definition")+" suivant");
         exitButton = new JButton("Retour");
         
         // Changer bouton en Recommencer si fin de theroemes
-        if (currentTheoremIndex == theoremList.size()-1)
+        if (currentEnonceIndex == enonceList.size()-1)
     		nextButton.setText("Recommencer");
         
         // Set layout
@@ -163,7 +174,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 
         // Add components to content pane
         JPanel centerPanel = new JPanel(new FlowLayout());
-        centerPanel.add(theoremLabel);
+        centerPanel.add(enonceLabel);
         testZone.add(centerPanel, BorderLayout.CENTER);
 
         JPanel southPanel = new JPanel(new FlowLayout());
@@ -222,17 +233,17 @@ public class Reviser extends Vue implements AfficheurFiche {
 	private void buttonClicked(ActionEvent e) {
 		if (e.getSource() == revealButton) {
             // Show the answer
-            String answer =  theoremList.get(currentTheoremIndex).getCorps();
-            theoremLabel.setText(answer);
+            String answer =  enonceList.get(currentEnonceIndex).getCorps();
+            enonceLabel.setText(answer);
         } else if (e.getSource() == nextButton) {
             // Go to the next theorem
         	// Changer bouton en Recommencer si fin de theroemes
-        	if (currentTheoremIndex == theoremList.size()-1)
+        	if (currentEnonceIndex == enonceList.size()-1)
         		nextButton.setText("Recommencer");
         	else
-        		nextButton.setText("Théorème suivant");
-            currentTheoremIndex = (currentTheoremIndex + 1) % theoremList.size();
-            theoremLabel.setText("<b>Theoreme : </b><br>" + theoremList.get(currentTheoremIndex).getTitre());
+        		nextButton.setText((theoremeOUdefinition == 0? "Théorème suivant":"Definition suivante"));
+            currentEnonceIndex = (currentEnonceIndex + 1) % enonceList.size();
+            enonceLabel.setText("<b>"+(theoremeOUdefinition == 0? "Théorème":"Definition")+" : </b><br>" + enonceList.get(currentEnonceIndex).getTitre());
         } else if (e.getSource() == exitButton) {
             // Ajouter les deux zones à la vue en les séparant
             JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
