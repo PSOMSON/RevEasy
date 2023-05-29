@@ -3,6 +3,7 @@ package gui;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -24,27 +25,35 @@ public class PopUpAjout extends JDialog {
     public PopUpAjout(JTextPane textbox, String type) {
         super();
         this.setLayout(new BorderLayout());
-        this.setTitle("Ajouter un(e) " + type);
+        String femininPotentiel = (type.equals("definition")) ? "e " : " ";
+        this.setTitle("Ajouter un" + femininPotentiel + type);
 
-        JPanel contenu = new JPanel(new GridLayout(2,2));
+        JPanel formulaire = new JPanel();
+        formulaire.setLayout(new BoxLayout(formulaire, BoxLayout.Y_AXIS));
 
-        contenu.add(new JLabel("Nom : "));
-        JTextField zoneNom = new JTextField();
-        contenu.add(zoneNom);
-        contenu.add(new JLabel("Contenu associé : "));
-        JTextComponent zoneContenu = new JTextArea();
-        contenu.add(zoneContenu);
+        JPanel formulaireNom = new JPanel(new GridLayout());
+        formulaireNom.add(new JLabel("Nom : "));
+        JTextField zoneNom = new JTextField(20);
+        formulaireNom.add(zoneNom);
+
+        JPanel formulaireContenu = new JPanel(new GridLayout());
+        formulaireContenu.add(new JLabel("Contenu associé : "));
+        JTextComponent zoneContenu = new JTextArea(5, 20);
+        formulaireContenu.add(zoneContenu);
+
+        formulaire.add(formulaireNom);
+        formulaire.add(formulaireContenu);
 
         // Créer le bouton pour ajouter le contenu à la fiche
         JButton ajouter = new JButton("Ajouter");
         ajouter.addActionListener(ev -> {
             textbox.requestFocusInWindow();
-            textbox.replaceSelection("\n\n@" + type + " " + zoneNom.getText() + "\n" +
+            textbox.replaceSelection("@" + type + " " + zoneNom.getText() + "\n" +
             zoneContenu.getText());
             this.dispose();
         });
 
-        this.add(contenu, BorderLayout.CENTER);
+        this.add(formulaire, BorderLayout.CENTER);
         this.add(ajouter, BorderLayout.SOUTH);
         this.setVisible(true);
         this.pack();
