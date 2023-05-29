@@ -3,6 +3,7 @@ package gui.vues;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.FlowLayout;
+import java.awt.GridBagLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.util.List;
@@ -89,13 +90,19 @@ public class Reviser extends Vue implements AfficheurFiche {
     	testTexteAtrou.setHorizontalTextPosition(JButton.CENTER);
     	testTexteAtrou.setVerticalTextPosition(JButton.BOTTOM);
 
+        // Créer le panel de l'onglet révision
+        JPanel revision = new JPanel(new BorderLayout());
+
     	// Créer le panel pour les boutons de test
-    	JPanel choixTest = new JPanel(new FlowLayout());
-    	panelTest.add(choixTest, BorderLayout.CENTER);
+    	JPanel choixTest = new JPanel(new GridBagLayout());
 
     	// Ajouter les boutons de test au panel
     	choixTest.add(testFlashCards);
     	choixTest.add(testTexteAtrou);
+
+        // Ajouter ses composants à l'onglet révision
+        revision.add(new JLabel("Fiche selectionée : " + f.getTitre()), BorderLayout.NORTH);
+        revision.add(choixTest, BorderLayout.CENTER);
         
         testFlashCards.addActionListener(e->{startTestFlashCards(f);});
         
@@ -105,13 +112,13 @@ public class Reviser extends Vue implements AfficheurFiche {
         
         // Ajout du bouton "retour au choix de fichier a reviser"
         exitButton = new JButton("Retour");
-        panelTest.add(exitButton, BorderLayout.SOUTH);
+        revision.add(exitButton, BorderLayout.SOUTH);
         exitButton.addActionListener(e->{buttonClicked(e);});
        
         
         // Ajouter les deux zones à la vue en les séparant
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-        		panelTest);
+        		revision);
         layout.setSize(this.getSize());
         
         // Change les elements de la vue
@@ -173,10 +180,14 @@ public class Reviser extends Vue implements AfficheurFiche {
         this.repaint();
 		
 	}
-    private void startTestAtROU(Fiche fiche,ReviserText reviserText) {
+    private void startTestAtROU(Fiche fiche, ReviserText reviserText) {
 	
 
-		
+		if (!reviserText.estPossible()) {
+            JOptionPane.showMessageDialog(null, "Il n'est pas possible de réviser avec " +
+            "un texte à trous pour cette fiche.", "Alert", JOptionPane.INFORMATION_MESSAGE);
+	    	return;
+        }
 		// Ajouter les deux zones à la vue en les séparant
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
         reviserText.afficher());
@@ -218,7 +229,5 @@ public class Reviser extends Vue implements AfficheurFiche {
             this.repaint();
         }
 	}
-        
-    
 
 }
