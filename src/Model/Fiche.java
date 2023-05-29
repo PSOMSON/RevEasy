@@ -13,7 +13,6 @@ public class Fiche {
 
     private String titre;
     private List<String> texte;
-    private String contenu;
  
     private final Map<Enonce.Type, String> balises = Map.of(Enonce.Type.DEFINITION, "@Definition", Enonce.Type.THEOREME,
             "@Theoreme");
@@ -27,7 +26,6 @@ public class Fiche {
     public Fiche(String titre, String contenu) {
         this.titre = titre;
         this.texte = new ArrayList<>();
-        this.contenu=contenu;
 
         // Découper le contenu en ligne de contenu
         int i = contenu.indexOf("\n");
@@ -155,10 +153,11 @@ public class Fiche {
             }
         }
         return enonces;
-
-
     }
+
+
     public  List<String> getTexteATrouver() {
+        String contenu = getContenu();
         String tag = "@text";
         List<String> result = new ArrayList<String>();
         int startIndex = contenu.indexOf(tag);
