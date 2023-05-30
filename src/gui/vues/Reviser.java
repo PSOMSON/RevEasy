@@ -288,17 +288,23 @@ public class Reviser extends Vue implements AfficheurFiche {
     }
 
     private void startQuestionAnswer(Fiche fiche, ReviserText reviserText) {
-        // Ajouter les deux zones à la vue en les séparant
+        JPanel revision = reviserText.afficherForQA();
         JSplitPane layout = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, menuLateral,
-                reviserText.afficherForQA());
+                revision);
         layout.setSize(this.getSize());
+
+        // Ajout du bouton "retour au choix de fichier a reviser"
+        exitButton = new JButton("Retour");
+        revision.add(exitButton, BorderLayout.NORTH);
+        exitButton.addActionListener(e -> {
+            buttonClicked(e);
+        });
 
         // Change les elements de la vue
         this.removeAll();
         this.add(layout, BorderLayout.CENTER);
         this.revalidate();
         this.repaint();
-
     }
 
 }

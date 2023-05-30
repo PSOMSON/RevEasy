@@ -71,6 +71,9 @@ public class Fiche {
 
         int taille = texte.size();
         int i = 0;
+
+        final int saut = 3;
+
         while (i < taille) {
             if (texte.get(i).contains(balise)) {
                 // Titre de la question
@@ -80,9 +83,8 @@ public class Fiche {
                 List<String> repsF = new LinkedList<>();
 
                 // Reponses
-                while (i + 3 < taille && texte.get(i + 3).contains(rep)) {
-                    i++;i++;i++;
-                    System.out.print(texte.get(i).indexOf(rep) + rep.length() + 1);
+                while (i + saut < taille && texte.get(i + saut).contains(rep)) {
+                    i = i+saut;
                     
                     if (texte.get(i).charAt(texte.get(i).indexOf(rep) + rep.length()) == 'V') {
                         repsV.add(texte.get(i).substring(texte.get(i).indexOf(rep) + rep.length() + 1).strip());
