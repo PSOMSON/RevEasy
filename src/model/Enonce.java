@@ -1,16 +1,21 @@
-package Model;
+package model;
 public class Enonce {
-    
+
     /**
-     * Type represente le format de l'enoncé
+     * Type represente le format de l'enoncé.
      */
     public enum Type {
+        /** Une définition. */
         DEFINITION,
+        /** Un théorème. */
         THEOREME
     }
 
-    private Type type; 
+    /** Type de l'énoncé. */
+    private Type type;
+    /** Titre de l'énoncé. */
     private String titre;
+    /** Corps de l'énoncé. */
     private String corps;
 
     /**
@@ -22,11 +27,11 @@ public class Enonce {
     public Enonce(Type type, String titre, String corps) {
         this.type = type;
         this.titre = titre;
-        this.corps = corps; 
+        this.corps = corps;
     }
 
     /**
-     * Obtenir le type d'enoncé
+     * Obtenir le type d'enoncé.
      * @return type
      */
     public Type getType() {
@@ -34,7 +39,7 @@ public class Enonce {
     }
 
     /**
-     * Obtenir le titre de l'enoncé
+     * Obtenir le titre de l'enoncé.
      * @return titre
      */
     public String getTitre() {
@@ -42,7 +47,7 @@ public class Enonce {
     }
 
     /**
-     * Obtenir le corps de l'énoncé
+     * Obtenir le corps de l'énoncé.
      * @return corps
      */
     public String getCorps() {

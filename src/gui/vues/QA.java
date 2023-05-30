@@ -3,8 +3,8 @@ package gui.vues;
 import java.util.LinkedList;
 import java.util.List;
 
-import Model.Fiche;
-import Model.Question;
+import model.Fiche;
+import model.Question;
 
 public class QA {
    

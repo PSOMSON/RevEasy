@@ -5,12 +5,12 @@ import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 
-import Model.Fiche;
 import gui.vues.Consultation;
 import gui.vues.Edition;
 import gui.vues.Reviser;
 import gui.vues.Vue;
 import gui.vues.Welcome;
+import model.Fiche;
 
 /**
  * Classe principale de l'interface graphique, permet de gérer les vues.

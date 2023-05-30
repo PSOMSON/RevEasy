@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -10,6 +10,11 @@ import java.io.StringReader;
 
 public class PDFConverter {
 
+    /**
+     * Constuire un convertisseur de texte vers un document PDF.
+     * @param htmlContent texte
+     * @param outputPath path du document produit
+     */
     public static void convertToPDF(String htmlContent, String outputPath) {
         try {
             // Create a Document object
@@ -19,8 +24,8 @@ public class PDFConverter {
             File file = new File(outputPath);
             file.getParentFile().mkdirs(); // Will create parent directories if not exists
             file.createNewFile();
-            FileOutputStream s = new FileOutputStream(file,false);
-            
+            FileOutputStream s = new FileOutputStream(file, false);
+
             PdfWriter writer = PdfWriter.getInstance(document, s);
 
             // Open the document

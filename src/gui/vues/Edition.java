@@ -4,9 +4,9 @@ import java.awt.BorderLayout;
 
 import javax.swing.JSplitPane;
 
-import Model.Fiche;
 import gui.Editeur;
 import gui.IHM;
+import model.Fiche;
 
 /**
  * Classe pour afficher la zone d'édition d'une fiche.

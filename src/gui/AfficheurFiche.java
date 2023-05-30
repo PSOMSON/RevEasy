@@ -1,6 +1,6 @@
 package gui;
 
-import Model.Fiche;
+import model.Fiche;
 
 /**
  * Interface de marquage pour pouvoir lancer les popups d'ouverture de fiche.

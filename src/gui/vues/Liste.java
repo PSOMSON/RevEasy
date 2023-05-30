@@ -11,8 +11,8 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import Model.Fiche;
-import Model.FicheSaver;
+import model.Fiche;
+import model.FicheSaver;
 
 /**
  * Classe pour afficher la liste des fiches.

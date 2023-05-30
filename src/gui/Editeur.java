@@ -10,8 +10,8 @@ import javax.swing.JTextField;
 import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLEditorKit;
 
-import Model.Fiche;
-import Model.FicheSaver;
+import model.Fiche;
+import model.FicheSaver;
 
 /**
  * Classe pour afficher la zone d'édition d'une fiche.

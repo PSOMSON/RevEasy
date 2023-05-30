@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 
 import java.util.ArrayList;
@@ -9,8 +9,11 @@ import java.util.Random;
  * Classe représentant un texte avec des trous aléatoires.
  */
 public class TexteAvecTrous {
+
+    /** Phrases originales du texte. */
     private final List<String> phrasesOriginales;
-    private final int nombreDeTrous = 5; // Le nombre de trous par phrase.
+    /** Le nombre de trous par phrase. */
+    private final int nombreDeTrous = 5;
 
     /**
      * Constructeur prenant en paramètre la liste de phrases initiales.
@@ -42,6 +45,7 @@ public class TexteAvecTrous {
      */
     public List<String> genererTexteAvecTrous() {
         List<String> phrasesAvecTrous = new ArrayList<>();
+        final double probabilite = 0.25;
 
         for (String phraseOriginale : phrasesOriginales) {
             List<String> motsOriginaux = decouperEnMots(phraseOriginale);
@@ -52,7 +56,7 @@ public class TexteAvecTrous {
                 Random random = new Random();
                 double nombreAleatoire = random.nextDouble();
 
-                if (nombreAleatoire < 0.25 && nombreDeTrousDone < nombreDeTrous) {
+                if (nombreAleatoire < probabilite && nombreDeTrousDone < nombreDeTrous) {
                     motsAvecTrous.add(" ...");
                     nombreDeTrousDone++;
                 } else {

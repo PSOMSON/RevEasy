@@ -1,21 +1,24 @@
-package Model;
+package model;
 
 import java.util.Arrays;
 import java.util.stream.IntStream;
 
 public class Question {
 
+    /** La question du qcm.*/
     private String question;
 
+    /** Les réponses du qcm. */
     private String[] reponses;
 
-    private int[] indexReponseJuste;    
+    /** Tableau contenant l'index de la réponse correcte du qcm. */
+    private int[] indexReponseJuste;
 
     /**
      * Constructeur d'une question.
-     * @param titreq
-     * @param reponsesJustes
-     * @param reponsesFausses
+     * @param question question du qcm
+     * @param reponsesJustes reponses correctes
+     * @param reponsesFausses reponses fausses
      */
     public Question(String question, String[] reponsesJustes, String[] reponsesFausses) {
         this.question = question;
@@ -32,7 +35,7 @@ public class Question {
     }
 
     /**
-     * Obtenir le texte de la question
+     * Obtenir le texte de la question.
      * @return la question
      */
     public String getQuestion() {
@@ -40,7 +43,7 @@ public class Question {
     }
 
     /**
-     * Obtenir un tableau contenant les reponses
+     * Obtenir un tableau contenant les reponses.
      * @return les réponses
      */
     public String[] getReponses() {
@@ -50,7 +53,7 @@ public class Question {
     /**
      * La réponse est-elle juste ?
      * @param reponse
-     * @return
+     * @return true si la question est juste, false sinon.
      */
     public boolean estJuste(String reponse) {
         for (int i = 0; i < indexReponseJuste.length; i++) {

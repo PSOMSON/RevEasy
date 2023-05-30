@@ -17,12 +17,12 @@ import javax.swing.JPanel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextPane;
 
-import Model.Enonce;
-import Model.Fiche;
-import Model.TexteAvecTrous;
 import gui.AfficheurFiche;
 import gui.IHM;
 import gui.PopUpOpenFiche;
+import model.Enonce;
+import model.Fiche;
+import model.TexteAvecTrous;
 
 public class Reviser extends Vue implements AfficheurFiche {
 	

@@ -20,11 +20,11 @@ import javax.swing.JTextPane;
 import javax.swing.text.html.HTMLEditorKit;
 import javax.swing.ImageIcon;
 
-import Model.Fiche;
-import Model.FicheSaver;
-import Model.Traducteur;
-import Model.PDFConverter;
 import gui.IHM;
+import model.Fiche;
+import model.FicheSaver;
+import model.PDFConverter;
+import model.Traducteur;
 
 public class Consultation extends Vue {
 

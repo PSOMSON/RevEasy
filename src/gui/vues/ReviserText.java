@@ -4,7 +4,8 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.*;
-import Model.Question;
+
+import model.Question;
 
 public class ReviserText {
     private List<String> originalTexts;

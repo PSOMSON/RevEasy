@@ -1,4 +1,4 @@
-package Model;
+package model;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -11,15 +11,18 @@ import java.util.Map;
  */
 public class Fiche {
 
+    /** Titre de la fiche. */
     private String titre;
+    /** Texte de la fiche, stocké ligne par ligne. */
     private List<String> texte;
- 
-    private final Map<Enonce.Type, String> balises = Map.of(Enonce.Type.DEFINITION, "@Definition", Enonce.Type.THEOREME,
-            "@Theoreme");
+
+    /**  */
+    private final Map<Enonce.Type, String> balises = Map.of(Enonce.Type.DEFINITION,
+    "@Definition", Enonce.Type.THEOREME, "@Theoreme");
 
     /**
      * Constructeur d'une Fiche.
-     * 
+     *
      * @param titre   titre de la fiche
      * @param contenu chaine de caractere contenant la fiche
      */
@@ -40,7 +43,7 @@ public class Fiche {
 
     /**
      * Obtenir la liste de tout les theoremes de la fiche.
-     * 
+     *
      * @return Liste d'Enonce de type THEOREME
      */
     public List<Enonce> getTheoremes() {
@@ -49,7 +52,7 @@ public class Fiche {
 
     /**
      * Obtenir la liste de toute les definitions de la fiche.
-     * 
+     *
      * @return Liste d'Enonce de type DEFINITION
      */
     public List<Enonce> getDefinitions() {
@@ -57,8 +60,8 @@ public class Fiche {
     }
 
     /**
-     * Obtenir la liste de toute les questions
-     * 
+     * Obtenir la liste de toute les questions.
+     *
      * @return Liste de Question
      */
     public List<Question> getQuestions() {
@@ -85,11 +88,11 @@ public class Fiche {
                         repsF.add(texte.get(i).substring(rep.length() + 2).strip());
                     } else {
                         throw new Error("Mauvaise balise");
-                        // TODO: Creer une exception personalisée
                     }
                 }
 
-                questions.add(new Question(titreq, repsV.toArray(new String[repsV.size()]),
+                questions.add(new Question(titreq,
+                        repsV.toArray(new String[repsV.size()]),
                         repsF.toArray(new String[repsF.size()])));
             }
             i++;
@@ -99,7 +102,7 @@ public class Fiche {
 
     /**
      * Acceder au titre d'une fiche.
-     * 
+     *
      * @return Le titre de la fiche
      */
     public String getTitre() {
@@ -108,7 +111,7 @@ public class Fiche {
 
     /**
      * Obtenir un itérateur sur les lignes d'une fiche.
-     * 
+     *
      * @return iterator
      */
     public Iterator<String> getContenuIterator() {
@@ -117,8 +120,8 @@ public class Fiche {
 
     /**
      * Obtenir le contenu (brut) de la fiche.
-     * 
-     * @return
+     *
+     * @return le contenu brut de la fiche
      */
     public String getContenu() {
         StringBuilder contenu = new StringBuilder();
@@ -132,7 +135,7 @@ public class Fiche {
 
     /**
      * Factorisation du code de getThm et getDef.
-     * 
+     *
      * @param type Type d'enoncé à chercher dans la fiche.
      * @return Liste d'enoncé de type @param type
      */
@@ -141,11 +144,14 @@ public class Fiche {
         String balise = balises.get(type);
 
         for (int i = 0; i < texte.size(); i++) {
-            String titredef, contenudef;
+            String titredef;
+            String contenudef;
             if (texte.get(i).contains(balise)) {
                 try {
                     titredef = texte.get(i).substring(balise.length() + 1).strip();
-                    contenudef = texte.get(i + 3).strip(); // +3 Permet de passer directement a la ligne qui contient le corps de l'enonce
+                    // +3 Permet de passer directement a la ligne qui contient
+                    // le corps de l'enonce
+                    contenudef = texte.get(i + 3).strip();
                     enonces.add(new Enonce(type, titredef, contenudef));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Mauvaise usage d'une balise " + balise);
@@ -156,6 +162,10 @@ public class Fiche {
     }
 
 
+    /**
+     * Récuperer le texte à trouver (dans un texte à trous).
+     * @return texte à trouver
+     */
     public  List<String> getTexteATrouver() {
         String contenu = getContenu();
         String tag = "@text";
@@ -166,7 +176,8 @@ public class Fiche {
             if (endIndex == -1) {
                 break;
             }
-            String extractedText = contenu.substring(startIndex + tag.length()+1, endIndex).trim();
+            String extractedText = contenu.substring(startIndex + tag.length() + 1,
+                endIndex).trim();
             result.add(extractedText);
             startIndex = contenu.indexOf(tag, endIndex + 1);
         }
