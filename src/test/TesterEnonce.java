@@ -6,19 +6,19 @@ import org.junit.Before;
 import org.junit.Test;
 
 import Model.Enonce;
-import Model.Enonce.Type;  
+import Model.Enonce.Type;
 
 /**
  * Classe de test de la classe Model.Enonce.java
  */
 public class TesterEnonce {
-    
+
     Enonce e1, e2;
 
     @Before
     public void setUp() {
         e1 = new Enonce(Type.THEOREME, "Pythagore", "a2+b2=c2");
-        e2 = new Enonce(Type.DEFINITION, "Vide", "");   
+        e2 = new Enonce(Type.DEFINITION, "Vide", "");
     }
 
     private void assertEquals(String s1, String s2) {
@@ -42,5 +42,5 @@ public class TesterEnonce {
         assertTrue(e1.getType() == Type.THEOREME);
         assertTrue(e2.getType() == Type.DEFINITION);
     }
-    
+
 }

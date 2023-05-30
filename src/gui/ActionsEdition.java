@@ -30,18 +30,21 @@ import javax.swing.text.StyleConstants;
 import javax.swing.text.StyledDocument;
 import javax.swing.text.StyledEditorKit;
 
-/** Le menu supérieur de la fenêtre d'édition, regroupe tous les boutons
+/**
+ * Le menu supérieur de la fenêtre d'édition, regroupe tous les boutons
  * comme "Gras" ou "Italique" etc...
  * Plus lisible si dans sa classe séparée.
  */
 
-public class ActionsEdition extends JPanel{
+public class ActionsEdition extends JPanel {
 
     /** L'éditeur associé au menu */
     JTextPane textbox;
 
-    /** Le bandeau supérieur, composé d'un menu en haut et des sous-menus en bas
-     * (un peu comme dans Word avec les menus "Fichier", "Edition", "Affichage" etc...)
+    /**
+     * Le bandeau supérieur, composé d'un menu en haut et des sous-menus en bas
+     * (un peu comme dans Word avec les menus "Fichier", "Edition", "Affichage"
+     * etc...)
      */
     JPanel bandeau;
 
@@ -51,15 +54,21 @@ public class ActionsEdition extends JPanel{
     /** Le sous-menu affiché */
     JPanel sousmenu;
 
-    /** Un sélecteur de couleur qui se doit de garder en mémoir les couleurs utilisées */
+    /**
+     * Un sélecteur de couleur qui se doit de garder en mémoir les couleurs
+     * utilisées
+     */
     JColorChooser colorChooser;
 
     /** Encore un sélecteur de couleur, mais pour le surlignage */
     JColorChooser backgroundChooser;
 
-    /** Créer un nouveau menu d'édition. Il est séparé en deux : une moitié supérieure avec les sur-catégories (insertion, edition etc)
-     * et une moitié inférieure avec les boutons correspondants à chaque catégorie (pour Editer : gras, italique, etc).
-    */
+    /**
+     * Créer un nouveau menu d'édition. Il est séparé en deux : une moitié
+     * supérieure avec les sur-catégories (insertion, edition etc)
+     * et une moitié inférieure avec les boutons correspondants à chaque catégorie
+     * (pour Editer : gras, italique, etc).
+     */
     public ActionsEdition(JTextPane textbox) {
 
         // On lie la zone d'édition à ce menu pour pouvoir la modifier
@@ -111,12 +120,14 @@ public class ActionsEdition extends JPanel{
             // Modifier le texte sélectionné
             textbox.setCharacterAttributes(attr, false);
         });
-        
+
     }
 
-    /** Créer le menu principal avec les boutons "Fichiers", "Edition", "RevEasy" 
+    /**
+     * Créer le menu principal avec les boutons "Fichiers", "Edition", "RevEasy"
+     * 
      * @return le menu principal
-    */
+     */
     private JPanel menuSelection() {
         // Création du menu
         JPanel menu = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -176,7 +187,7 @@ public class ActionsEdition extends JPanel{
         balises.setFocusPainted(false);
 
         // Ajout des boutons au menu
-        //menu.add(fichiers);
+        // menu.add(fichiers);
         menu.add(edition);
         menu.add(balises);
         // On commence dans le menu Edition
@@ -184,12 +195,15 @@ public class ActionsEdition extends JPanel{
         return menu;
     }
 
-    /** Peuple le sous-menu fichier avec toutes les commandes concernées. 
+    /**
+     * Peuple le sous-menu fichier avec toutes les commandes concernées.
      * On parle ici des commandes de sauvegarde, d'ouverture, etc...
-    */
-    private void peuplerFichiers(){}
+     */
+    private void peuplerFichiers() {
+    }
 
-    /** Peuple le sous-menu édition avec toutes les commandes concernées.
+    /**
+     * Peuple le sous-menu édition avec toutes les commandes concernées.
      * On parle ici des commandes de mise en forme du texte.
      * voici la liste des commandes qui y appartiennent :
      * - Gras
@@ -201,7 +215,7 @@ public class ActionsEdition extends JPanel{
      * - Police
      * - Alignement (gauche / centre / droite / justifié)
      */
-    private void peuplerEdition(){
+    private void peuplerEdition() {
         // Personnalisation de la disposition des boutons
         this.sousmenu.setLayout(new GridLayout(0, 3));
 
@@ -233,7 +247,7 @@ public class ActionsEdition extends JPanel{
         underline.setFocusPainted(false);
         gauche.add(underline);
 
-        // Déclaration du controlleur de police 
+        // Déclaration du controlleur de police
         String[] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
         JComboBox<String> font = new JComboBox<>(fonts);
 
@@ -244,7 +258,7 @@ public class ActionsEdition extends JPanel{
                 JFrame frame = new JFrame("Choix de la couleur");
                 frame.add(colorChooser);
                 frame.pack();
-                frame.setAlwaysOnTop (true);
+                frame.setAlwaysOnTop(true);
                 frame.setVisible(true);
             }
         });
@@ -258,7 +272,7 @@ public class ActionsEdition extends JPanel{
                 JFrame frame = new JFrame("Choix de la couleur");
                 frame.add(backgroundChooser);
                 frame.pack();
-                frame.setAlwaysOnTop (true);
+                frame.setAlwaysOnTop(true);
                 frame.setVisible(true);
             }
         });
@@ -267,7 +281,7 @@ public class ActionsEdition extends JPanel{
 
         // Au centre
 
-    // Ajout d'un spinner de taille de police pour le texte sélectionné
+        // Ajout d'un spinner de taille de police pour le texte sélectionné
         SpinnerNumberModel size = new SpinnerNumberModel(12, 1, 100, 1);
         size.addChangeListener(new ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent e) {
@@ -296,8 +310,7 @@ public class ActionsEdition extends JPanel{
         // Ajout de la somme des deux dans le centre
         centre.add(taillePanel);
 
-        
-    // Ajout d'un spinner pour la police d'écriture
+        // Ajout d'un spinner pour la police d'écriture
         font.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textbox.requestFocusInWindow();
@@ -318,9 +331,8 @@ public class ActionsEdition extends JPanel{
         // Ajout au centre
         centre.add(font);
 
-
         // A droite
-        
+
         // On y met les alignements de texte (gauche, centre, droite, justifié)
         JButton alignGauche = new JButton(new StyledEditorKit.AlignmentAction("Gauche", StyleConstants.ALIGN_LEFT));
         alignGauche.setFocusPainted(false);
@@ -328,14 +340,13 @@ public class ActionsEdition extends JPanel{
         alignCentre.setFocusPainted(false);
         JButton alignDroite = new JButton(new StyledEditorKit.AlignmentAction("Droite", StyleConstants.ALIGN_RIGHT));
         alignDroite.setFocusPainted(false);
-        JButton alignJustifie = new JButton(new StyledEditorKit.AlignmentAction("Justifié", StyleConstants.ALIGN_JUSTIFIED));
+        JButton alignJustifie = new JButton(
+                new StyledEditorKit.AlignmentAction("Justifié", StyleConstants.ALIGN_JUSTIFIED));
         alignJustifie.setFocusPainted(false);
         droite.add(alignGauche);
         droite.add(alignCentre);
         droite.add(alignDroite);
         droite.add(alignJustifie);
-
-
 
         // Ajout des trois parties
         this.sousmenu.add(gauche);
@@ -343,14 +354,14 @@ public class ActionsEdition extends JPanel{
         this.sousmenu.add(droite);
     }
 
-
-    /** Peuple le sous-menu balises avec toutes les commandes concernées. 
+    /**
+     * Peuple le sous-menu balises avec toutes les commandes concernées.
      * Voici les commandes ajoutées :
      * - @Definition
      * - @Theoreme
      * - @Question
-    */
-    private void peuplerBalises(){
+     */
+    private void peuplerBalises() {
 
         // Ajout des actions
         JButton definition = new JButton("@Definition");
@@ -376,7 +387,8 @@ public class ActionsEdition extends JPanel{
         qcm.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 textbox.requestFocusInWindow();
-                textbox.replaceSelection("\n\n@Question question ?\n@ReponseV Réponse vraie\n@ReponseF Réponse fausse\n@ReponseF Réponse fausse");
+                textbox.replaceSelection(
+                        "\n\n@Question question ?\n@ReponseV Réponse vraie\n@ReponseF Réponse fausse\n@ReponseF Réponse fausse");
             }
         });
 

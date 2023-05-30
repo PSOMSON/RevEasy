@@ -17,8 +17,8 @@ import model.FicheSaver;
  * Classe pour afficher la zone d'édition d'une fiche.
  */
 public class Editeur extends JPanel implements AfficheurFiche {
-    
-    /** Zone d'édition */
+
+    /** Zone d'édition. */
     private JTextPane textbox;
 
     /** Zone du titre. */
@@ -60,10 +60,14 @@ public class Editeur extends JPanel implements AfficheurFiche {
         this.add(controleurs, BorderLayout.SOUTH);
 
         // Ajout du menu supérieur d'édition
-        JPanel actions = new ActionsEdition(this.textbox); 
+        JPanel actions = new ActionsEdition(this.textbox);
         this.add(actions, BorderLayout.NORTH);
     }
-    
+
+    /**
+     * Créer un éditeur avec une fiche déjà ouverte.
+     * @param f
+    */
     public Editeur(Fiche f) {
     	this();
     	openFiche(f);
