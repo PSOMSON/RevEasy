@@ -150,7 +150,7 @@ public class Fiche {
             String contenudef;
             if (texte.get(i).contains(balise)) {
                 try {
-                    titredef = texte.get(i).substring(balise.length() + 1).strip();
+                    titredef = texte.get(i).substring(texte.get(i).indexOf(balise) + balise.length() + 1).strip();
                     // +3 Permet de passer directement a la ligne qui contient
                     // le corps de l'enonce
                     contenudef = texte.get(i + saut).strip();
