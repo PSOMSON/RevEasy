@@ -3,7 +3,7 @@ package gui;
 import model.Fiche;
 
 /**
- * Interface de marquage pour pouvoir lancer les popups d'ouverture de fiche.
+ * Interface pour pouvoir lancer les popups d'ouverture de fiche.
  */
 public interface AfficheurFiche {
 
