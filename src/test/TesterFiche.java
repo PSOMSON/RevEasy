@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Fiche;
+import model.Fiche;
 
 /**
  * Classe de test de la classe Model.Fiche.java.

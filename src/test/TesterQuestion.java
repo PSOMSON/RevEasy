@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Question;
+import model.Question;
 
 /**
  * Classe de test de la classe Model.Question.java.

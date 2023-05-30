@@ -181,6 +181,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 
         // Create UI components
         enonceLabel = new JTextPane();
+        enonceLabel.setEditable(false);
         enonceLabel.setEditorKit(new HTMLEditorKit());
         enonceLabel.setText("<b>" + (theoremeOUdefinition == 0 ? "Theoreme" : "Definition") + " : </b><br>"
                 + enonceList.get(currentEnonceIndex).getTitre());

@@ -5,8 +5,8 @@ import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
 
-import Model.Enonce;
-import Model.Enonce.Type;
+import model.Enonce;
+import model.Enonce.Type;
 
 /**
  * Classe de test de la classe Model.Enonce.java
