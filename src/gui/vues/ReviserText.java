@@ -20,7 +20,10 @@ public class ReviserText {
         this.originalTexts = originalTexts;
         this.texteTroue = texteTroue;
         this.currentIndex = 0;
-        this.res=new JTextArea(texteTroue.get(currentIndex));
+        if (texteTroue.size() > 0) {
+            this.res=new JTextArea(texteTroue.get(currentIndex));
+        } 
+        
     }
 
     public ReviserText(List<Question> originalQA) {
