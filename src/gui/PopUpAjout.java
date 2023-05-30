@@ -17,6 +17,11 @@ import javax.swing.text.JTextComponent;
  * notre fiche.*/
 public class PopUpAjout extends JDialog {
 
+    /** Taille des zones de texte. */
+    private static final int COLOMNE = 20;
+    /** Taille des zones de texte. */
+    private static final int LIGNE = 5;
+
     /**
      * Créer une fenêtre pop-up.
      * @param textbox zone de texte à modifier
@@ -33,12 +38,12 @@ public class PopUpAjout extends JDialog {
 
         JPanel formulaireNom = new JPanel(new GridLayout());
         formulaireNom.add(new JLabel("Nom : "));
-        JTextField zoneNom = new JTextField(20);
+        JTextField zoneNom = new JTextField(COLOMNE);
         formulaireNom.add(zoneNom);
 
         JPanel formulaireContenu = new JPanel(new GridLayout());
         formulaireContenu.add(new JLabel("Contenu associé : "));
-        JTextComponent zoneContenu = new JTextArea(5, 20);
+        JTextComponent zoneContenu = new JTextArea(LIGNE, COLOMNE);
         formulaireContenu.add(zoneContenu);
 
         formulaire.add(formulaireNom);
@@ -48,8 +53,8 @@ public class PopUpAjout extends JDialog {
         JButton ajouter = new JButton("Ajouter");
         ajouter.addActionListener(ev -> {
             textbox.requestFocusInWindow();
-            textbox.replaceSelection("@" + type + " " + zoneNom.getText() + "\n" +
-            zoneContenu.getText());
+            textbox.replaceSelection("@" + type + " " + zoneNom.getText() + "\n"
+            + zoneContenu.getText());
             this.dispose();
         });
 
