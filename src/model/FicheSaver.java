@@ -18,9 +18,6 @@ public class FicheSaver {
     /** dossier ou l'on place les fiches. */
     private static File fichesDir;
 
-    /**
-     * Constructeur, verifie l'architecture du dossier de sauvegarde.
-     */
     static {
         String homepath = System.getProperty("user.home");
 

@@ -143,6 +143,8 @@ public class Fiche {
         List<Enonce> enonces = new LinkedList<>();
         String balise = balises.get(type);
 
+        final int saut = 3;
+
         for (int i = 0; i < texte.size(); i++) {
             String titredef;
             String contenudef;
@@ -151,7 +153,7 @@ public class Fiche {
                     titredef = texte.get(i).substring(balise.length() + 1).strip();
                     // +3 Permet de passer directement a la ligne qui contient
                     // le corps de l'enonce
-                    contenudef = texte.get(i + 3).strip();
+                    contenudef = texte.get(i + saut).strip();
                     enonces.add(new Enonce(type, titredef, contenudef));
                 } catch (IndexOutOfBoundsException e) {
                     System.out.println("Mauvaise usage d'une balise " + balise);

@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 
-import Model.Question;
+import model.Question;
 
 public class ReviserText {
 
