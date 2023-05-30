@@ -1,0 +1,48 @@
+@startuml Classe Reviser
+
+class Reviser {
+    - MenuLateral menuLateral
+    + Reviser(IHM ihm)
+    + void openFiche(Fiche f)
+    - void startTestFlashCards(Fiche f)
+    - void startTestAtROU(Fiche f, ReviserText reviserText)
+}
+
+class IHM {
+}
+
+class PopUpOpenFiche {
+    + PopUpOpenFiche(AfficheurFiche afficheur)
+}
+
+class Fiche {
+    + String getTheoremes()
+    + String getDefinitions()
+    + String getQuestions()
+}
+
+class ReviserText {
+    + ReviserText(List<String> originalTexts, List<String> texteTroue) 
+    + JPanel afficher()
+    + boolean estPossible()
+}
+
+class TextAvecTrous {
+    + TexteAvecTrous(List<String> phrasesOriginales) 
+    + List<String> genererTexteAvecTrous() 
+    - List<String> decouperEnMots(String phrase)
+}
+
+interface AfficheurFiche{}
+
+IHM -- Reviser
+MenuLateral --> Reviser
+MenuLateral -- IHM
+Reviser --|> Vue
+Reviser <|.. AfficheurFiche
+PopUpOpenFiche -- Reviser
+Fiche --> Reviser
+ReviserText --> Reviser
+TextAvecTrous --> Reviser
+
+@enduml

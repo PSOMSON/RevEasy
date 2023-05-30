@@ -1,0 +1,34 @@
+@startuml Classe Consultation
+
+class Consultation {
+    + Fiche fiche
+    + IHM ihm
+    + Consultation(IHM ihm)
+    + void ouvrir(Fiche f)
+    + void exportPDF(Fiche f)
+    + void supprimer(Fiche f)
+    - void modifierFiche(Fiche fiche) 
+}
+
+class Fiche {
+    + Fiche(String titre, String contenu)
+    + String getContenu()
+    + String getTitre()
+}
+
+class Traducteur{
+    {static} + String balises(String contenu)
+}
+
+class IHM {
+    + void editer(Fiche f)
+}
+
+Fiche --* "1" Consultation
+IHM --* "1" Consultation
+Traducteur -- "utilisé par" Consultation
+
+note "Permet d'extraire les balises de la fiche" as N1
+N1 .. Traducteur
+
+@enduml

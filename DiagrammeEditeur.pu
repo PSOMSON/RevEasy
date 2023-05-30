@@ -1,0 +1,53 @@
+@startuml Classe Editeur
+
+class Editeur {
+    - JtextPane textbox
+    + Editeur()
+    + Editeur(Fiche f)
+    + openFiche(Fiche f)
+}
+
+class ActionsEdition {
+    + ActionsEdition(JtextPane textbox)
+}
+
+class Fiche {
+    + Fiche(String titre, String contenu)
+}
+
+class FicheSaver {
+    {static} + sauvegarder(Fiche f)
+}
+
+class PopUpOpenFiche {
+    + PopUpOpenFiche(AfficheurFiche afficheur)
+}
+
+interface AfficheurFiche {
+    + openFiche(Fiche f)
+}
+
+class Edition {
+    - Editeur zoneEdition
+    - MenuLateral menuLateral
+    + Edition(IHM ihm)
+    + editer(Fiche f)
+}
+
+ActionsEdition --* "1" Editeur
+
+
+PopUpOpenFiche -- Editeur
+Fiche --> Editeur
+Editeur --|> JPanel
+Editeur <|.. AfficheurFiche
+FicheSaver --> Editeur
+Editeur --* "1" Edition
+MenuLateral --* "1" Edition
+IHM -- Edition
+MenuLateral --|> Vue
+IHM -- MenuLateral
+
+
+
+@enduml
