@@ -1,22 +1,19 @@
-package gui.vues;
+package Model;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import Model.Fiche;
-import Model.Question;
-
 public class QA {
-   
-	Fiche fiche;
+
+    Fiche fiche;
     private List<String> texte;
-    
-	public QA(Fiche fiche) {
-		super();
-		this.fiche = fiche;
-	}
-   
-	public List<Question> getQuestions() {
+
+    public QA(Fiche fiche) {
+        super();
+        this.fiche = fiche;
+    }
+
+    public List<Question> getQuestions() {
         List<Question> questions = new LinkedList<>();
         String balise = "@Question";
         String rep = "@Reponse";
@@ -40,11 +37,11 @@ public class QA {
                         repsF.add(texte.get(i).substring(rep.length() + 2).strip());
                     } else {
                         throw new Error("Mauvaise balise");
-                        // TODO: Creer une exception personalisée
                     }
                 }
 
-                questions.add(new Question(titreq, repsV.toArray(new String[repsV.size()]),
+                questions.add(new Question(titreq,
+                        repsV.toArray(new String[repsV.size()]),
                         repsF.toArray(new String[repsF.size()])));
             }
             i++;
