@@ -76,7 +76,7 @@ public class Reviser extends Vue implements AfficheurFiche {
     	// Créer les boutons de test
     	JButton testFlashCards = new JButton();
     	testFlashCards.setBackground(Color.WHITE);
-    	ImageIcon icon = new ImageIcon("assets/QCM.png"); // redimensionnement de l'image
+    	ImageIcon icon = new ImageIcon("assets/flashcards.png"); // redimensionnement de l'image
 		Image img = icon.getImage();
 		Image newimg = img.getScaledInstance(150, 100, java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
@@ -98,7 +98,7 @@ public class Reviser extends Vue implements AfficheurFiche {
 
         JButton questionAnswer = new JButton("Q/A");
         questionAnswer.setBackground(Color.WHITE);
-    	icon = new ImageIcon("assets/texteatrou.png"); // redimensionnement de l'image
+    	icon = new ImageIcon("assets/QCM.png"); // redimensionnement de l'image
 		img = icon.getImage();
 		newimg = img.getScaledInstance(150, 100, java.awt.Image.SCALE_SMOOTH);
 		icon = new ImageIcon(newimg);
